@@ -5,6 +5,7 @@ import { ServicesGrid } from "@/components/services-grid"
 import { LocatorMap } from "@/components/locator-map"
 import { IntakeForm } from "@/components/intake-form"
 import { Testimonials } from "@/components/testimonials"
+import { Team } from "@/components/team"
 import { BlogSection } from "@/components/blog-section"
 import { Faq } from "@/components/faq"
 import { SiteFooter } from "@/components/site-footer"
@@ -17,8 +18,9 @@ export default function Page() {
       <main>
         <LocatorMap />
         <Partners />
-        <IntakeForm />
         <ServicesGrid />
+        <Team />
+        <IntakeForm />
         <Testimonials />
         <BlogSection />
         <Faq />

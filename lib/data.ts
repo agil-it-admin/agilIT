@@ -1,17 +1,17 @@
 export type Facility = {
-  id: string
-  name: string
-  provider: string
-  metro: string
-  state: string
-  region: "West" | "Southwest" | "Midwest" | "Southeast" | "Northeast"
-  coordinates: [number, number] // [lng, lat]
-  powerMw: number
-  spaceSqft: string
-  tier: "Tier III" | "Tier IV"
-  pue: number
-  certifications: string[]
-}
+  id: string;
+  name: string;
+  provider: string;
+  metro: string;
+  state: string;
+  region: "West" | "Southwest" | "Midwest" | "Southeast" | "Northeast";
+  coordinates: [number, number]; // [lng, lat]
+  powerMw: number;
+  spaceSqft: string;
+  tier: "Tier III" | "Tier IV";
+  pue: number;
+  certifications: string[];
+};
 
 export const facilities: Facility[] = [
   {
@@ -182,7 +182,7 @@ export const facilities: Facility[] = [
     pue: 1.32,
     certifications: ["SOC 2", "ISO 27001", "HIPAA"],
   },
-]
+];
 
 export const regions = [
   "All Regions",
@@ -191,19 +191,19 @@ export const regions = [
   "Midwest",
   "Southeast",
   "Northeast",
-] as const
+] as const;
 
 export type Service = {
-  id: string
-  name: string
-  tagline: string
-  icon: "server" | "cloud" | "network" | "shield" | "cpu" | "globe"
-  bestFor: string
-  deployTime: string
-  startingAt: string
-  features: string[]
-  popular?: boolean
-}
+  id: string;
+  name: string;
+  tagline: string;
+  icon: "server" | "cloud" | "network" | "shield" | "cpu" | "globe";
+  bestFor: string;
+  deployTime: string;
+  startingAt: string;
+  features: string[];
+  popular?: boolean;
+};
 
 export const services: Service[] = [
   {
@@ -267,14 +267,14 @@ export const services: Service[] = [
       "SLA-backed 99.999% uptime",
     ],
   },
-]
+];
 
 export type Testimonial = {
-  quote: string
-  name: string
-  role: string
-  company: string
-}
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+};
 
 export const testimonials: Testimonial[] = [
   {
@@ -298,12 +298,12 @@ export const testimonials: Testimonial[] = [
     role: "Head of Cloud Ops",
     company: "Ardent Logistics",
   },
-]
+];
 
 export type Partner = {
-  name: string
-  logo: string
-}
+  name: string;
+  logo: string;
+};
 
 export const partners: Partner[] = [
   {
@@ -318,12 +318,12 @@ export const partners: Partner[] = [
     name: "Digital Realty",
     logo: "/placeholder-images/logos/digital-realty-seeklogo.svg",
   },
-]
+];
 
 export type Faq = {
-  question: string
-  answer: string
-}
+  question: string;
+  answer: string;
+};
 
 export const faqs: Faq[] = [
   {
@@ -351,11 +351,33 @@ export const faqs: Faq[] = [
     answer:
       "Deployments of every size are welcome — from a single quarter-cabinet to multi-megawatt campuses. The same matching process and advisory support applies regardless of footprint.",
   },
-]
+];
 
 export const stats = [
   { value: "1,400+", label: "Facilities in network" },
   { value: "200+", label: "Global metros" },
   { value: "11M+", label: "Sq ft sourced" },
   { value: "48hr", label: "Avg. quote turnaround" },
-]
+];
+
+export type TeamMember = {
+  id: string;
+  name: string;
+  role: string;
+  image: string;
+};
+
+export const team: TeamMember[] = [
+  {
+    id: "brad-mclaughlin",
+    name: "Brad McLaughlin",
+    role: "",
+    image: "/placeholder-images/people/1750707470069.webp",
+  },
+  {
+    id: "patrick-ellis",
+    name: "Patrick Ellis",
+    role: "",
+    image: "/placeholder-images/people/1582124128804.webp",
+  },
+];

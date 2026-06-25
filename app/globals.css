@@ -199,3 +199,19 @@
     @apply font-sans;
   }
 }
+
+/* SSR-safe initial hidden state for GSAP entrance animations */
+@media (prefers-reduced-motion: no-preference) {
+  .entrance-prepare {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(var(--entrance-x, 0px), var(--entrance-y, 24px), 0);
+    transition: none;
+  }
+
+  .entrance-stagger-prepare > * {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(var(--entrance-x, 0px), var(--entrance-y, 18px), 0);
+  }
+}
