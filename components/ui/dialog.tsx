@@ -54,7 +54,7 @@ function DialogPopup({
     <DialogPrimitive.Popup
       data-slot="dialog-popup"
       className={cn(
-        "relative z-50 flex max-h-[min(90vh,720px)] w-full max-w-lg flex-col overflow-hidden rounded-xl border border-border bg-background text-foreground shadow-lg outline-none transition-[transform,opacity] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 sm:max-w-xl",
+        "relative z-50 flex max-h-[min(90vh,720px)] w-full max-w-lg flex-col overflow-hidden border border-border bg-background text-foreground shadow-lg outline-none transition-[transform,opacity] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 sm:max-w-xl",
         className,
       )}
       {...props}
@@ -127,7 +127,7 @@ function DialogClose({
     <DialogPrimitive.Close
       data-slot="dialog-close"
       className={cn(
-        "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+        "inline-flex h-8 w-8 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
         className,
       )}
       aria-label="Close"

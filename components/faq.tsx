@@ -19,7 +19,7 @@ export function Faq() {
           </h2>
         </div>
 
-        <div className="mt-12 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+        <div className="mt-12 divide-y divide-border overflow-hidden border border-border bg-card">
           {faqs.map((item, i) => {
             const isOpen = open === i
             return (
@@ -33,7 +33,7 @@ export function Faq() {
                   <span className="text-base font-semibold text-foreground">
                     {item.question}
                   </span>
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-foreground">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-border text-foreground">
                     {isOpen ? (
                       <Minus className="h-4 w-4" />
                     ) : (

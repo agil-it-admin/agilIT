@@ -18,7 +18,7 @@ export function Testimonials() {
           {testimonials.map((t) => (
             <figure
               key={t.name}
-              className="flex flex-col rounded-xl border border-border bg-card p-6"
+              className="flex flex-col border border-border bg-card p-6"
             >
               <Quote
                 className="h-7 w-7 text-muted-foreground/40"

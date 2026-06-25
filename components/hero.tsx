@@ -1,13 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { QuoteCtaButton } from "@/components/quote-cta-button"
+import { DatacenterIllustration } from "@/components/datacenter-illustration"
 import { stats } from "@/lib/data"
-import { Check, ArrowRight } from "lucide-react"
-
-const proofPoints = [
-  "No cost, no obligation",
-  "1-business-day response",
-  "Vendor-neutral advice",
-]
+import { ArrowRight } from "lucide-react"
 
 export function Hero() {
   return (
@@ -40,39 +35,40 @@ export function Hero() {
               Explore the map
             </Button>
           </div>
-
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-            {proofPoints.map((point) => (
-              <li
-                key={point}
-                className="flex items-center gap-2 text-sm text-muted-foreground"
-              >
-                <Check className="h-4 w-4 text-foreground" aria-hidden="true" />
-                {point}
-              </li>
-            ))}
-          </ul>
         </div>
 
-        <div className="rounded-xl border border-border/80 bg-background/70 p-6 backdrop-blur-sm sm:p-8">
-          <p className="text-sm font-medium text-muted-foreground">
-            By the numbers
-          </p>
-          <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-8">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <dt className="sr-only">{stat.label}</dt>
-                <dd>
-                  <span className="block text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-                    {stat.value}
-                  </span>
-                  <span className="mt-1 block text-sm text-muted-foreground">
-                    {stat.label}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
+        <div className="flex flex-col gap-4">
+          <div className="overflow-hidden border border-border/80 bg-background/70 shadow-sm">
+            <DatacenterIllustration
+              variant="exterior"
+              className="aspect-[16/9] w-full"
+              title="Modern data center facility with rooftop cooling units"
+            />
+            <p className="border-t border-border/80 bg-background/80 px-4 py-2.5 text-xs font-medium text-muted-foreground backdrop-blur-sm">
+              Carrier-neutral facilities across 200+ U.S. metros
+            </p>
+          </div>
+
+          <div className="border border-border/80 bg-background/70 p-6 backdrop-blur-sm sm:p-8">
+            <p className="text-sm font-medium text-muted-foreground">
+              By the numbers
+            </p>
+            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-8">
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd>
+                    <span className="block text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                      {stat.value}
+                    </span>
+                    <span className="mt-1 block text-sm text-muted-foreground">
+                      {stat.label}
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </div>
     </section>

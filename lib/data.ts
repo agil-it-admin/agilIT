@@ -15,20 +15,6 @@ export type Facility = {
 
 export const facilities: Facility[] = [
   {
-    id: "ashburn-1",
-    name: "Loudoun Gateway DC1",
-    provider: "Meridian Edge",
-    metro: "Ashburn, VA",
-    state: "Virginia",
-    region: "Southeast",
-    coordinates: [-77.4875, 39.0437],
-    powerMw: 72,
-    spaceSqft: "340,000 sq ft",
-    tier: "Tier IV",
-    pue: 1.28,
-    certifications: ["SOC 2", "ISO 27001", "PCI DSS", "HIPAA"],
-  },
-  {
     id: "santa-clara-1",
     name: "Silicon Valley Campus 4",
     provider: "Northstar Colocation",
@@ -41,6 +27,20 @@ export const facilities: Facility[] = [
     tier: "Tier III",
     pue: 1.32,
     certifications: ["SOC 2", "ISO 27001", "Uptime M&O"],
+  },
+  {
+    id: "ashburn-1",
+    name: "Loudoun Gateway DC1",
+    provider: "Meridian Edge",
+    metro: "Ashburn, VA",
+    state: "Virginia",
+    region: "Southeast",
+    coordinates: [-77.4875, 39.0437],
+    powerMw: 72,
+    spaceSqft: "340,000 sq ft",
+    tier: "Tier IV",
+    pue: 1.28,
+    certifications: ["SOC 2", "ISO 27001", "PCI DSS", "HIPAA"],
   },
   {
     id: "dallas-1",
@@ -300,13 +300,24 @@ export const testimonials: Testimonial[] = [
   },
 ]
 
-export const partners = [
-  "Meridian Edge",
-  "Northstar Colocation",
-  "Lone Star Data",
-  "Lakeside Interconnect",
-  "Atlantic Core",
-  "Sonoran Cloud",
+export type Partner = {
+  name: string
+  logo: string
+}
+
+export const partners: Partner[] = [
+  {
+    name: "CBRE",
+    logo: "/placeholder-images/logos/CBRE_Group_logo.svg",
+  },
+  {
+    name: "JLL",
+    logo: "/placeholder-images/logos/jll-logo.svg",
+  },
+  {
+    name: "Digital Realty",
+    logo: "/placeholder-images/logos/digital-realty-seeklogo.svg",
+  },
 ]
 
 export type Faq = {

@@ -5,7 +5,7 @@ export type BlogPost = {
   excerpt: string
   readTime: string
   date: string
-  image: string
+  imageVariant: "server-room" | "exterior" | "cooling-aisle"
   imageAlt: string
   sections: {
     heading?: string
@@ -22,8 +22,8 @@ export const blogPosts: BlogPost[] = [
       "A practical framework for deciding which workloads stay on owned hardware and which belong in elastic cloud capacity.",
     readTime: "8 min read",
     date: "Jun 12, 2026",
-    image: "/blog/placeholder-server-room.png",
-    imageAlt: "Pixel-art illustration of a server room aisle with racks and cabling",
+    imageVariant: "server-room",
+    imageAlt: "Server room aisle with racks and cabling",
     sections: [
       {
         paragraphs: [
@@ -62,8 +62,8 @@ export const blogPosts: BlogPost[] = [
       "Redundancy, concurrent maintainability, and what the Uptime Institute classifications actually mean for your SLA.",
     readTime: "6 min read",
     date: "May 28, 2026",
-    image: "/blog/placeholder-server-room.png",
-    imageAlt: "Pixel-art illustration of a server room aisle with racks and cabling",
+    imageVariant: "exterior",
+    imageAlt: "Renewable energy research facility exterior",
     sections: [
       {
         paragraphs: [
@@ -100,8 +100,8 @@ export const blogPosts: BlogPost[] = [
       "GPU clusters are rewriting the rules on kW-per-rack. Here is how to budget for liquid cooling and high-density cages.",
     readTime: "10 min read",
     date: "May 9, 2026",
-    image: "/blog/placeholder-server-room.png",
-    imageAlt: "Pixel-art illustration of a server room aisle with racks and cabling",
+    imageVariant: "cooling-aisle",
+    imageAlt: "Server hall with CRAC units and technicians",
     sections: [
       {
         paragraphs: [

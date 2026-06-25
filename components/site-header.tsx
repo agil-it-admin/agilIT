@@ -55,7 +55,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center text-foreground md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -81,7 +81,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
+                className="px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
               >
                 {item.label}
               </a>

@@ -3,31 +3,30 @@ import { partners } from "@/lib/data"
 
 export function Partners() {
   return (
-    <section className="border-y border-border bg-muted/40">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-4 py-3 sm:flex-row sm:gap-6 sm:px-6 lg:px-8">
-        <p className="shrink-0 text-center text-xs font-medium tracking-wide text-muted-foreground sm:text-left">
+    <section className="border-y border-border bg-muted/30">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <p className="text-center text-sm font-medium tracking-wide text-muted-foreground">
           Sourcing capacity from a vetted network of providers
         </p>
-        <div
-          className="hidden h-5 w-px shrink-0 bg-border sm:block"
-          aria-hidden
-        />
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 sm:ml-auto sm:justify-end">
-          {partners.map((name) => (
-            <div
-              key={name}
-              className="relative h-6 w-24 shrink-0 opacity-40 grayscale"
+
+        <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {partners.map((partner) => (
+            <li
+              key={partner.name}
+              className="group flex items-center justify-center border border-border bg-card px-8 py-6 transition-colors hover:border-foreground/15"
             >
-              <Image
-                src="/placeholder-logo.svg"
-                alt=""
-                fill
-                className="object-contain"
-                sizes="96px"
-              />
-            </div>
+              <div className="relative h-10 w-full max-w-[148px] opacity-50 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0">
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  fill
+                  className="object-contain object-center"
+                  sizes="148px"
+                />
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

@@ -84,7 +84,7 @@ export function IntakeForm() {
               "Negotiated pricing across our network",
             ].map((item) => (
               <li key={item} className="flex items-center gap-3 text-muted-foreground">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-border text-foreground">
+                <span className="flex h-6 w-6 items-center justify-center border border-border text-foreground">
                   <Check className="h-3.5 w-3.5" />
                 </span>
                 {item}
@@ -93,7 +93,7 @@ export function IntakeForm() {
           </ul>
         </div>
 
-        <IntakeFormContent className="rounded-xl border border-border bg-background p-6 text-foreground sm:p-8" />
+        <IntakeFormContent className="border border-border bg-background p-6 text-foreground sm:p-8" />
       </div>
     </section>
   )
@@ -128,7 +128,7 @@ export function IntakeFormContent({ className }: { className?: string }) {
     <div className={className}>
           {status === "done" ? (
             <div className="flex flex-col items-center py-10 text-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border text-foreground">
+              <span className="flex h-14 w-14 items-center justify-center border border-border text-foreground">
                 <CheckCircle2 className="h-8 w-8" />
               </span>
               <h3 className="mt-5 text-xl font-semibold text-foreground">
@@ -158,7 +158,7 @@ export function IntakeFormContent({ className }: { className?: string }) {
                 {steps.map((label, i) => (
                   <div key={label} className="flex items-center gap-2">
                     <span
-                      className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold ${
+                      className={`flex h-7 w-7 items-center justify-center text-xs font-semibold ${
                         i < step
                           ? "bg-primary text-primary-foreground"
                           : i === step
@@ -270,7 +270,7 @@ export function IntakeFormContent({ className }: { className?: string }) {
                         value={data.details}
                         onChange={(e) => update({ details: e.target.value })}
                         placeholder="Compliance needs, interconnects, redundancy requirements…"
-                        className="mt-1.5 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
+                        className="mt-1.5 w-full border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
                       />
                     </div>
                   </div>
@@ -364,7 +364,7 @@ function OptionGrid({
             key={opt}
             type="button"
             onClick={() => onChange(opt)}
-            className={`flex items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors ${
+            className={`flex items-center justify-between border px-4 py-3 text-left text-sm font-medium transition-colors ${
               selected
                 ? "border-foreground bg-muted text-foreground ring-1 ring-foreground/10"
                 : "border-input bg-background text-foreground hover:border-foreground/30"
@@ -372,7 +372,7 @@ function OptionGrid({
           >
             {opt}
             <span
-              className={`flex h-4 w-4 items-center justify-center rounded-full border ${
+              className={`flex h-4 w-4 items-center justify-center border ${
                 selected
                   ? "border-foreground bg-foreground text-background"
                   : "border-muted-foreground/40"
@@ -413,7 +413,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="mt-1.5 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
+        className="mt-1.5 w-full border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
       />
     </div>
   )

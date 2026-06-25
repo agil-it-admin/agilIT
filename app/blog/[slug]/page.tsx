@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { DatacenterIllustration } from "@/components/datacenter-illustration";
 import { blogPosts, getAllBlogSlugs, getBlogPost } from "@/lib/blog";
 import { ArrowLeft } from "lucide-react";
 
@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </Link>
 
             <div className="mt-6 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-              <span className="rounded-full border border-border px-2.5 py-0.5 text-xs font-medium text-foreground">
+              <span className="border border-border px-2.5 py-0.5 text-xs font-medium text-foreground">
                 {post.category}
               </span>
               <span>{post.date}</span>
@@ -67,14 +67,11 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           <div className="mx-auto mt-10 max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="relative aspect-[21/9] overflow-hidden rounded-xl border border-border bg-muted">
-              <Image
-                src={post.image}
-                alt={post.imageAlt}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 1024px"
+            <div className="overflow-hidden border border-border bg-muted">
+              <DatacenterIllustration
+                variant={post.imageVariant}
+                className="aspect-[21/9] h-auto w-full"
+                title={post.imageAlt}
               />
             </div>
           </div>
@@ -114,15 +111,13 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <Link
                   key={entry.slug}
                   href={`/blog/${entry.slug}`}
-                  className="group flex gap-4 rounded-xl border border-border bg-card p-4"
+                  className="group flex gap-4 border border-border bg-card p-4"
                 >
-                  <div className="relative h-24 w-32 shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
-                    <Image
-                      src={entry.image}
-                      alt={entry.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="128px"
+                  <div className="h-24 w-32 shrink-0 overflow-hidden border border-border bg-muted">
+                    <DatacenterIllustration
+                      variant={entry.imageVariant}
+                      className="h-full w-full"
+                      title={entry.imageAlt}
                     />
                   </div>
                   <div className="min-w-0">

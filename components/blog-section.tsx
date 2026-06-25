@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import { DatacenterIllustration } from "@/components/datacenter-illustration"
 import { blogPosts } from "@/lib/blog"
 import { ArrowUpRight } from "lucide-react"
 
@@ -33,23 +33,21 @@ export function BlogSection() {
           {blogPosts.map((post) => (
             <article
               key={post.slug}
-              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card"
+              className="group flex flex-col overflow-hidden border border-border bg-card"
             >
               <Link
                 href={`/blog/${post.slug}`}
-                className="relative aspect-[16/10] overflow-hidden border-b border-border bg-muted"
+                className="relative block aspect-[16/10] overflow-hidden border-b border-border bg-muted transition-transform duration-300 group-hover:scale-[1.01]"
               >
-                <Image
-                  src={post.image}
-                  alt={post.imageAlt}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                <DatacenterIllustration
+                  variant={post.imageVariant}
+                  className="h-full w-full"
+                  title={post.imageAlt}
                 />
               </Link>
               <div className="flex flex-1 flex-col p-6">
                 <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                  <span className="rounded-full border border-border px-2.5 py-0.5 text-foreground">
+                  <span className="border border-border px-2.5 py-0.5 text-foreground">
                     {post.category}
                   </span>
                   <span>{post.readTime}</span>

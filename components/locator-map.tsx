@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { geoAlbersUsa } from "d3-geo";
+import { useCallback, useMemo, useState } from "react";
 import {
   ComposableMap,
   Geographies,
@@ -9,6 +10,11 @@ import {
 } from "react-simple-maps";
 import { facilities, regions, type Facility } from "@/lib/data";
 import { QuoteCtaButton } from "@/components/quote-cta-button";
+import { Button } from "@/components/ui/button";
+import {
+  DatacenterIllustration,
+  facilityIllustrationVariant,
+} from "@/components/datacenter-illustration";
 import {
   MapPin,
   Zap,
@@ -17,9 +23,32 @@ import {
   Gauge,
   ChevronRight,
   Award,
+  X,
+  PanelRightOpen,
 } from "lucide-react";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
+
+const MAP_WIDTH = 800;
+const MAP_HEIGHT = 500;
+const MAP_SCALE = 1000;
+
+/** Match ComposableMap projection so marker screen X aligns with the map. */
+function getDetailCardSide(coordinates: [number, number]): "left" | "right" {
+  const projection = geoAlbersUsa()
+    .translate([MAP_WIDTH / 2, MAP_HEIGHT / 2])
+    .scale(MAP_SCALE);
+  const projected = projection(coordinates);
+  const x = projected?.[0] ?? MAP_WIDTH / 2;
+  // Marker on the left half → card on the right (and vice versa) so the dot stays visible.
+  return x < MAP_WIDTH / 2 ? "right" : "left";
+}
+
+function floatingOverlayClassName(side: "left" | "right") {
+  return `pointer-events-none absolute inset-y-0 hidden p-4 sm:p-5 lg:flex lg:items-center ${
+    side === "left" ? "left-0 justify-start" : "right-0 justify-end"
+  }`;
+}
 
 const MAP_COLORS = {
   land: "#f9fafb",
@@ -33,6 +62,21 @@ const MAP_COLORS = {
 export function LocatorMap() {
   const [region, setRegion] = useState<(typeof regions)[number]>("All Regions");
   const [activeId, setActiveId] = useState<string>(facilities[0].id);
+  const [dismissedDetailIds, setDismissedDetailIds] = useState<Set<string>>(
+    () => new Set(),
+  );
+
+  const dismissDetail = useCallback((id: string) => {
+    setDismissedDetailIds((prev) => new Set(prev).add(id));
+  }, []);
+
+  const showDetail = useCallback((id: string) => {
+    setDismissedDetailIds((prev) => {
+      const next = new Set(prev);
+      next.delete(id);
+      return next;
+    });
+  }, []);
 
   const filtered = useMemo(
     () =>
@@ -44,6 +88,11 @@ export function LocatorMap() {
 
   const active: Facility | undefined =
     filtered.find((f) => f.id === activeId) ?? filtered[0];
+
+  const detailCardSide = useMemo(
+    () => (active ? getDetailCardSide(active.coordinates) : "right"),
+    [active],
+  );
 
   function handleRegionChange(next: (typeof regions)[number]) {
     setRegion(next);
@@ -72,7 +121,7 @@ export function LocatorMap() {
           </p>
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <div className="mt-10 overflow-hidden border border-border bg-card shadow-sm">
           {/* Region filters */}
           <div className="border-b border-border bg-muted/40 px-4 py-4 sm:px-6">
             <div
@@ -89,7 +138,7 @@ export function LocatorMap() {
                     role="tab"
                     aria-selected={isActive}
                     onClick={() => handleRegionChange(r)}
-                    className={`shrink-0 rounded-lg px-3.5 py-2 text-sm font-medium transition-all sm:px-4 ${
+                    className={`shrink-0 px-3.5 py-2 text-sm font-medium transition-all sm:px-4 ${
                       isActive
                         ? "bg-background text-foreground shadow-sm ring-1 ring-border"
                         : "text-muted-foreground hover:bg-background/60 hover:text-foreground"
@@ -109,7 +158,7 @@ export function LocatorMap() {
                 <h3 className="text-sm font-semibold text-foreground">
                   Facilities
                 </h3>
-                <span className="rounded-full bg-frosted-mint px-2.5 py-0.5 text-xs font-medium text-dark-emerald">
+                <span className="bg-frosted-mint px-2.5 py-0.5 text-xs font-medium text-dark-emerald">
                   {filtered.length}
                 </span>
               </div>
@@ -128,7 +177,7 @@ export function LocatorMap() {
                         }`}
                       >
                         <span
-                          className={`mt-0.5 h-2 w-2 shrink-0 rounded-full transition-colors ${
+                          className={`mt-0.5 h-2 w-2 shrink-0 transition-colors ${
                             isSelected
                               ? "bg-dark-emerald ring-4 ring-dark-emerald/15"
                               : "bg-celadon group-hover:bg-sea-green"
@@ -180,9 +229,9 @@ export function LocatorMap() {
               <div className="relative aspect-[5/3] w-full bg-gradient-to-b from-muted/30 to-muted/10 sm:aspect-[16/10] lg:aspect-auto lg:min-h-[520px]">
                 <ComposableMap
                   projection="geoAlbersUsa"
-                  projectionConfig={{ scale: 1000 }}
-                  width={800}
-                  height={500}
+                  projectionConfig={{ scale: MAP_SCALE }}
+                  width={MAP_WIDTH}
+                  height={MAP_HEIGHT}
                   className="h-full w-full"
                   style={{ width: "100%", height: "100%" }}
                 >
@@ -242,12 +291,29 @@ export function LocatorMap() {
                 </ComposableMap>
 
                 {/* Floating detail card — desktop */}
-                {active && (
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden p-4 sm:p-5 lg:block">
+                {active && !dismissedDetailIds.has(active.id) && (
+                  <div className={floatingOverlayClassName(detailCardSide)}>
                     <FacilityDetailCard
                       facility={active}
-                      className="pointer-events-auto ml-auto max-w-sm shadow-lg"
+                      className="pointer-events-auto max-h-full max-w-sm overflow-y-auto shadow-lg"
+                      onDismiss={() => dismissDetail(active.id)}
                     />
+                  </div>
+                )}
+
+                {/* Re-open detail — desktop when dismissed */}
+                {active && dismissedDetailIds.has(active.id) && (
+                  <div className={floatingOverlayClassName(detailCardSide)}>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="pointer-events-auto max-w-sm bg-card/95 shadow-lg backdrop-blur-sm"
+                      onClick={() => showDetail(active.id)}
+                    >
+                      <PanelRightOpen className="h-3.5 w-3.5" aria-hidden="true" />
+                      View facility details
+                    </Button>
                   </div>
                 )}
               </div>
@@ -269,15 +335,37 @@ export function LocatorMap() {
 function FacilityDetailCard({
   facility,
   className = "",
+  onDismiss,
 }: {
   facility: Facility;
   className?: string;
+  onDismiss?: () => void;
 }) {
+  const illustration = facilityIllustrationVariant(facility.id);
+
   return (
     <article
-      className={`rounded-xl border border-border bg-card/95 p-5 backdrop-blur-sm sm:p-6 ${className}`}
+      className={`relative overflow-hidden border border-border bg-card/95 backdrop-blur-sm ${className}`}
     >
-      <div className="flex items-start justify-between gap-3">
+      {onDismiss && (
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="absolute right-2 top-2 z-10 bg-background/80 shadow-sm backdrop-blur-sm"
+          onClick={onDismiss}
+          aria-label="Close facility details"
+        >
+          <X className="h-4 w-4" aria-hidden="true" />
+        </Button>
+      )}
+      <DatacenterIllustration
+        variant={illustration}
+        className="aspect-[16/9] h-auto w-full border-b border-border"
+        title={`${facility.name} facility illustration`}
+      />
+      <div className="p-5 sm:p-6">
+        <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="text-lg font-semibold leading-snug text-foreground">
             {facility.name}
@@ -289,7 +377,7 @@ function FacilityDetailCard({
             </span>
           </p>
         </div>
-        <span className="shrink-0 rounded-full border border-dark-emerald/20 bg-frosted-mint px-2.5 py-1 text-xs font-semibold text-dark-emerald">
+        <span className="shrink-0 border border-dark-emerald/20 bg-frosted-mint px-2.5 py-1 text-xs font-semibold text-dark-emerald">
           {facility.tier}
         </span>
       </div>
@@ -326,7 +414,7 @@ function FacilityDetailCard({
           {facility.certifications.map((c) => (
             <span
               key={c}
-              className="rounded-md border border-border bg-muted/80 px-2 py-0.5 text-xs font-medium text-foreground"
+              className="border border-border bg-muted/80 px-2 py-0.5 text-xs font-medium text-foreground"
             >
               {c}
             </span>
@@ -337,6 +425,7 @@ function FacilityDetailCard({
       <QuoteCtaButton className="mt-5 w-full" size="default">
         Request a quote for this facility
       </QuoteCtaButton>
+      </div>
     </article>
   );
 }
@@ -351,7 +440,7 @@ function Spec({
   value: string;
 }) {
   return (
-    <div className="rounded-lg border border-border/80 bg-muted/40 px-3 py-2.5">
+    <div className="border border-border/80 bg-muted/40 px-3 py-2.5">
       <dt className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
         <span className="text-sea-green">{icon}</span>
         {label}

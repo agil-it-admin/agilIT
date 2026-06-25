@@ -4,7 +4,11 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { QuoteModalProvider } from '@/components/quote-modal-provider'
 import './globals.css'
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+  display: 'swap',
+})
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
@@ -52,7 +56,7 @@ export default function RootLayout({
       lang="en"
       className={`light ${geistSans.variable} ${geistMono.variable} bg-background`}
     >
-      <body className="font-sans antialiased">
+      <body className={`${geistSans.className} font-sans antialiased`}>
         <QuoteModalProvider>{children}</QuoteModalProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

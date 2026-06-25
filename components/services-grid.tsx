@@ -43,18 +43,18 @@ export function ServicesGrid() {
             return (
               <div
                 key={service.id}
-                className={`relative flex flex-col rounded-xl border bg-card p-6 ${
+                className={`relative flex flex-col border bg-card p-6 ${
                   service.popular
                     ? "border-foreground"
                     : "border-border"
                 }`}
               >
                 {service.popular && (
-                  <span className="absolute -top-3 left-6 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
+                  <span className="absolute -top-3 left-6 border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
                     Most requested
                   </span>
                 )}
-                <span className="flex h-11 w-11 items-center justify-center rounded-lg border border-border text-foreground">
+                <span className="flex h-11 w-11 items-center justify-center border border-border text-foreground">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <h3 className="mt-5 text-lg font-semibold text-foreground">
