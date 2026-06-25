@@ -1,39 +1,39 @@
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { blogPosts, getAllBlogSlugs, getBlogPost } from "@/lib/blog"
-import { ArrowLeft } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { blogPosts, getAllBlogSlugs, getBlogPost } from "@/lib/blog";
+import { ArrowLeft } from "lucide-react";
 
 type PageProps = {
-  params: Promise<{ slug: string }>
-}
+  params: Promise<{ slug: string }>;
+};
 
 export function generateStaticParams() {
-  return getAllBlogSlugs().map((slug) => ({ slug }))
+  return getAllBlogSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params
-  const post = getBlogPost(slug)
-  if (!post) return { title: "Article not found" }
+  const { slug } = await params;
+  const post = getBlogPost(slug);
+  if (!post) return { title: "Article not found" };
 
   return {
     title: `${post.title} — agil.IT`,
     description: post.excerpt,
-  }
+  };
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params
-  const post = getBlogPost(slug)
-  if (!post) notFound()
+  const { slug } = await params;
+  const post = getBlogPost(slug);
+  if (!post) notFound();
 
-  const morePosts = blogPosts.filter((entry) => entry.slug !== post.slug)
+  const morePosts = blogPosts.filter((entry) => entry.slug !== post.slug);
 
   return (
     <div className="min-h-screen bg-background">
@@ -88,9 +88,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                       {section.heading}
                     </h2>
                   )}
-                  <div
-                    className={`space-y-4 ${section.heading ? "mt-4" : ""}`}
-                  >
+                  <div className={`space-y-4 ${section.heading ? "mt-4" : ""}`}>
                     {section.paragraphs.map((paragraph, pIndex) => (
                       <p
                         key={pIndex}
@@ -143,5 +141,5 @@ export default async function BlogPostPage({ params }: PageProps) {
       </main>
       <SiteFooter />
     </div>
-  )
+  );
 }

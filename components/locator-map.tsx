@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { useMemo, useState } from "react"
+import { useMemo, useState } from "react";
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
-} from "react-simple-maps"
-import { facilities, regions, type Facility } from "@/lib/data"
-import { QuoteCtaButton } from "@/components/quote-cta-button"
+} from "react-simple-maps";
+import { facilities, regions, type Facility } from "@/lib/data";
+import { QuoteCtaButton } from "@/components/quote-cta-button";
 import {
   MapPin,
   Zap,
@@ -17,9 +17,9 @@ import {
   Gauge,
   ChevronRight,
   Award,
-} from "lucide-react"
+} from "lucide-react";
 
-const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json"
+const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
 const MAP_COLORS = {
   land: "#f9fafb",
@@ -28,11 +28,11 @@ const MAP_COLORS = {
   markerInactive: "#74c69d",
   markerActive: "#2d6a4f",
   markerRing: "#40916c",
-} as const
+} as const;
 
 export function LocatorMap() {
-  const [region, setRegion] = useState<(typeof regions)[number]>("All Regions")
-  const [activeId, setActiveId] = useState<string>(facilities[0].id)
+  const [region, setRegion] = useState<(typeof regions)[number]>("All Regions");
+  const [activeId, setActiveId] = useState<string>(facilities[0].id);
 
   const filtered = useMemo(
     () =>
@@ -40,24 +40,24 @@ export function LocatorMap() {
         ? facilities
         : facilities.filter((f) => f.region === region),
     [region],
-  )
+  );
 
   const active: Facility | undefined =
-    filtered.find((f) => f.id === activeId) ?? filtered[0]
+    filtered.find((f) => f.id === activeId) ?? filtered[0];
 
   function handleRegionChange(next: (typeof regions)[number]) {
-    setRegion(next)
+    setRegion(next);
     const nextFiltered =
       next === "All Regions"
         ? facilities
-        : facilities.filter((f) => f.region === next)
+        : facilities.filter((f) => f.region === next);
     if (!nextFiltered.some((f) => f.id === activeId)) {
-      setActiveId(nextFiltered[0]?.id ?? facilities[0].id)
+      setActiveId(nextFiltered[0]?.id ?? facilities[0].id);
     }
   }
 
   return (
-    <section id="locations" className="border-t border-border py-20 lg:py-28">
+    <section id="locations" className=" py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-sm font-medium tracking-wide text-sea-green">
@@ -81,7 +81,7 @@ export function LocatorMap() {
               aria-label="Filter by region"
             >
               {regions.map((r) => {
-                const isActive = region === r
+                const isActive = region === r;
                 return (
                   <button
                     key={r}
@@ -97,7 +97,7 @@ export function LocatorMap() {
                   >
                     {r}
                   </button>
-                )
+                );
               })}
             </div>
           </div>
@@ -115,7 +115,7 @@ export function LocatorMap() {
               </div>
               <ul className="max-h-64 divide-y divide-border overflow-y-auto lg:max-h-[520px]">
                 {filtered.map((f) => {
-                  const isSelected = active?.id === f.id
+                  const isSelected = active?.id === f.id;
                   return (
                     <li key={f.id}>
                       <button
@@ -152,7 +152,9 @@ export function LocatorMap() {
                         <span className="flex shrink-0 flex-col items-end gap-0.5">
                           <span
                             className={`text-xs font-semibold tabular-nums ${
-                              isSelected ? "text-dark-emerald" : "text-muted-foreground"
+                              isSelected
+                                ? "text-dark-emerald"
+                                : "text-muted-foreground"
                             }`}
                           >
                             {f.powerMw} MW
@@ -168,7 +170,7 @@ export function LocatorMap() {
                         </span>
                       </button>
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </aside>
@@ -206,7 +208,7 @@ export function LocatorMap() {
                     }
                   </Geographies>
                   {filtered.map((f) => {
-                    const isActive = active?.id === f.id
+                    const isActive = active?.id === f.id;
                     return (
                       <Marker
                         key={f.id}
@@ -235,7 +237,7 @@ export function LocatorMap() {
                           opacity={isActive ? 1 : 0.85}
                         />
                       </Marker>
-                    )
+                    );
                   })}
                 </ComposableMap>
 
@@ -261,15 +263,15 @@ export function LocatorMap() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function FacilityDetailCard({
   facility,
   className = "",
 }: {
-  facility: Facility
-  className?: string
+  facility: Facility;
+  className?: string;
 }) {
   return (
     <article
@@ -336,7 +338,7 @@ function FacilityDetailCard({
         Request a quote for this facility
       </QuoteCtaButton>
     </article>
-  )
+  );
 }
 
 function Spec({
@@ -344,9 +346,9 @@ function Spec({
   label,
   value,
 }: {
-  icon: React.ReactNode
-  label: string
-  value: string
+  icon: React.ReactNode;
+  label: string;
+  value: string;
 }) {
   return (
     <div className="rounded-lg border border-border/80 bg-muted/40 px-3 py-2.5">
@@ -358,5 +360,5 @@ function Spec({
         {value}
       </dd>
     </div>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-import { Hero } from "@/components/hero"
-import { NetworkGridBackground } from "@/components/network-grid-background"
+import { Hero } from "@/components/hero";
+import { NetworkGridBackground } from "@/components/network-grid-background";
 
 export function SiteHeroShell() {
   return (
     <div
       id="top"
-      className="relative -mt-16 flex min-h-dvh flex-col overflow-hidden border-b border-border bg-frosted-mint"
+      className="relative -mt-16 flex min-h-dvh flex-col overflow-hidden "
     >
       <NetworkGridBackground className="pointer-events-none absolute inset-0 h-full w-full" />
       <div
@@ -20,5 +20,5 @@ export function SiteHeroShell() {
         <Hero />
       </div>
     </div>
-  )
+  );
 }
