@@ -231,7 +231,8 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         <div
           ref={barRef}
           className={cn(
-            "pointer-events-auto relative flex h-14 w-full max-w-7xl items-center justify-between gap-3 border border-transparent bg-transparent pl-3 pr-2 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 sm:pl-4 sm:pr-2.5",
+            "pointer-events-auto relative flex h-14 w-full items-center justify-between gap-3 border border-transparent bg-transparent pl-3 pr-2 transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out sm:pl-4 sm:pr-2.5",
+            scrolled ? "max-w-7xl" : "max-w-[1680px]",
             scrolled &&
               (overlay
                 ? "border-border/60 bg-background/75 shadow-sm backdrop-blur-xl backdrop-saturate-150"

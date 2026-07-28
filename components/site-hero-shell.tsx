@@ -42,15 +42,16 @@ export function SiteHeroShell() {
         className="pointer-events-none absolute inset-0 z-[2]"
         style={{
           background:
-            "linear-gradient(to bottom, transparent 0%, transparent 55%, var(--background) 88%)",
+            "linear-gradient(to bottom, transparent 0%, transparent 86%, var(--background) 100%)",
         }}
         aria-hidden="true"
       />
       <div className="relative z-10 flex min-h-dvh flex-col pt-16 sm:pt-20">
         <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col">
           <Hero />
-          <LogoMarquee />
         </div>
+        <LogoMarquee />
+        <div className="h-10 shrink-0 sm:h-14" aria-hidden="true" />
       </div>
     </div>
   )

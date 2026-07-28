@@ -18,7 +18,7 @@ export function Hero() {
           </EntranceReveal>
 
           <EntranceReveal delay={0.62} y={28} duration={0.8}>
-            <h1 className="mt-5 text-pretty text-4xl font-semibold leading-[1.06] tracking-tight text-evergreen sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 text-pretty text-4xl font-semibold leading-[1.06] tracking-tight text-pine-teal sm:text-5xl lg:text-6xl">
               Find the right data center for your workload—without the
               guesswork.
             </h1>

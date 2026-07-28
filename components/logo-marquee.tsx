@@ -17,7 +17,7 @@ function LogoSet({ ariaHidden }: { ariaHidden?: boolean }) {
           key={`${partner.name}-${index}`}
           className="flex shrink-0 items-center justify-center"
         >
-          <div className="relative h-6 w-[100px] opacity-40 grayscale sm:h-7 sm:w-[125px]">
+          <div className="relative h-7 w-[100px] opacity-40 grayscale sm:h-8 sm:w-[125px]">
             <Image
               src={partner.logo}
               alt={ariaHidden ? "" : partner.name}
@@ -36,9 +36,9 @@ export function LogoMarquee() {
   return (
     <section
       aria-label="Partner network"
-      className="logo-marquee-fade mt-6 shrink-0 overflow-hidden border-y border-border bg-background/40 sm:mt-8 lg:mt-16"
+      className="logo-marquee-fade mt-6 shrink-0 overflow-hidden border-y border-border bg-background/25 sm:mt-8 lg:mt-16"
     >
-      <div className="logo-marquee flex w-max items-center gap-12 py-3.5 sm:gap-16 sm:py-4 md:gap-20">
+      <div className="logo-marquee flex w-max items-center gap-12 py-4 sm:gap-16 sm:py-5 md:gap-20">
         <LogoSet />
         <LogoSet ariaHidden />
       </div>
