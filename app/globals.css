@@ -6,8 +6,8 @@
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: var(--font-geist-sans), 'Geist Fallback';
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --font-sans: var(--font-work-sans), 'Work Sans', system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --color-frosted-mint: #d8f3dc;
   --color-frosted-mint-100: #16461d;
   --color-frosted-mint-500: #d8f3dc;
@@ -213,5 +213,139 @@
     opacity: 0;
     visibility: hidden;
     transform: translate3d(var(--entrance-x, 0px), var(--entrance-y, 18px), 0);
+    transition: none;
   }
 }
+
+/* React Bits–style floating nav CTA (brand greens) */
+.rb-cta {
+  --cta-mx: 50%;
+  background: linear-gradient(
+    125deg,
+    #1b4332,
+    #2d6a4f,
+    #52b788,
+    #2d6a4f,
+    #1b4332
+  );
+  background-size: 400% 100%;
+  animation: rb-cta-flow 3s ease infinite;
+  box-shadow:
+    0 0 16px rgba(82, 183, 136, 0.45),
+    0 0 40px rgba(64, 145, 108, 0.2);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+.rb-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: rb-cta-shine 10s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.rb-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle at var(--cta-mx) 50%,
+    rgba(255, 255, 255, 0.18),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.rb-cta:hover {
+  box-shadow:
+    0 0 24px rgba(82, 183, 136, 0.65),
+    0 0 56px rgba(64, 145, 108, 0.3);
+}
+
+.rb-cta:hover::after {
+  opacity: 1;
+}
+
+@keyframes rb-cta-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rb-cta-shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-cta,
+  .rb-cta::before {
+    animation: none;
+  }
+}
+
+/* Stripe-style partner logo marquee (right → left) */
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-marquee {
+  animation: logo-marquee 45s linear infinite;
+  will-change: transform;
+}
+
+/* Soft edge fades so logos dissolve at both sides */
+.logo-marquee-fade {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee {
+    animation: none;
+    transform: none;
+  }
+}
+

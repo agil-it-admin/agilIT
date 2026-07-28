@@ -1,12 +1,13 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist_Mono, Work_Sans } from 'next/font/google'
 import { QuoteModalProvider } from '@/components/quote-modal-provider'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const workSans = Work_Sans({
+  variable: '--font-work-sans',
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 const geistMono = Geist_Mono({
@@ -54,9 +55,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`light ${geistSans.variable} ${geistMono.variable} bg-background`}
+      className={`light ${workSans.variable} ${geistMono.variable} bg-background`}
     >
-      <body className={`${geistSans.className} font-sans antialiased`}>
+      <body className={`${workSans.className} font-sans antialiased`}>
         <QuoteModalProvider>{children}</QuoteModalProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
