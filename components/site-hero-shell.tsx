@@ -14,14 +14,14 @@ export function SiteHeroShell() {
           className="h-full w-full"
           colors={["#a8cbb8", "#7fa892", "#c5ddd0"]}
           rotation={-20}
-          speed={0.07}
+          speed={0.14}
           scale={1}
-          frequency={1}
-          warpStrength={0.975}
+          frequency={1.05}
+          warpStrength={1.05}
           mouseInfluence={0}
-          noise={0}
+          noise={0.06}
           parallax={0}
-          iterations={1}
+          iterations={2}
           intensity={0.85}
           bandWidth={2.2}
           transparent

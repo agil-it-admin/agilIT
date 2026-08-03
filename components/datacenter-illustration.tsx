@@ -1,8 +1,7 @@
-import Image from "next/image"
 import {
   type DatacenterIllustrationVariant,
   facilityIllustrationVariant,
-  variantImageMap,
+  variantColorMap,
 } from "@/lib/placeholder-images"
 
 export type { DatacenterIllustrationVariant }
@@ -14,23 +13,20 @@ type Props = {
   title?: string
 }
 
-/** Data center scene photos for the hero, cards, and blog. */
+/** Colored placeholder for facility / blog imagery (no photos). */
 export function DatacenterIllustration({
   variant = "server-room",
   className = "",
   title = "Data center facility",
 }: Props) {
-  const src = variantImageMap[variant]
+  const color = variantColorMap[variant]
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
-      <Image
-        src={src}
-        alt={title}
-        fill
-        className="object-cover"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      />
-    </div>
+    <div
+      className={`relative h-full w-full overflow-hidden ${className}`}
+      style={{ backgroundColor: color }}
+      role="img"
+      aria-label={title}
+    />
   )
 }

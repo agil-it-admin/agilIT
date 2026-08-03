@@ -1,11 +1,11 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist_Mono, Work_Sans } from 'next/font/google'
+import { Geist_Mono, Mulish } from 'next/font/google'
 import { QuoteModalProvider } from '@/components/quote-modal-provider'
 import './globals.css'
 
-const workSans = Work_Sans({
-  variable: '--font-work-sans',
+const mulish = Mulish({
+  variable: '--font-mulish',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   display: 'swap',
@@ -55,9 +55,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`light ${workSans.variable} ${geistMono.variable} bg-background`}
+      className={`light ${mulish.variable} ${geistMono.variable} bg-background`}
     >
-      <body className={`${workSans.className} font-sans antialiased`}>
+      <body className={`${mulish.className} font-sans antialiased`}>
         <QuoteModalProvider>{children}</QuoteModalProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

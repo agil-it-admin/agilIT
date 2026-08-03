@@ -8,12 +8,14 @@ type SpotlightZoneProps = {
   children: ReactNode
   className?: string
   size?: number
+  id?: string
 }
 
 export function SpotlightZone({
   children,
   className,
   size = 520,
+  id,
 }: SpotlightZoneProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -33,6 +35,7 @@ export function SpotlightZone({
 
   return (
     <div
+      id={id}
       ref={ref}
       className={cn("relative overflow-hidden", className)}
       style={

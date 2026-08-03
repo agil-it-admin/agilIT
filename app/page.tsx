@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/site-header"
 import { SiteHeroShell } from "@/components/site-hero-shell"
-import { Partners } from "@/components/partners"
+import { BackboneStats } from "@/components/backbone-stats"
+import { CustomerOutcomes } from "@/components/customer-outcomes"
 import { ServicesGrid } from "@/components/services-grid"
 import { LocatorMap } from "@/components/locator-map"
 import { IntakeForm } from "@/components/intake-form"
@@ -16,8 +17,9 @@ export default function Page() {
       <SiteHeader overlay />
       <SiteHeroShell />
       <main>
+        <BackboneStats />
         <LocatorMap />
-        <Partners />
+        <CustomerOutcomes />
         <ServicesGrid />
         <Team />
         <IntakeForm />

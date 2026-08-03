@@ -231,7 +231,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         <div
           ref={barRef}
           className={cn(
-            "pointer-events-auto relative flex h-14 w-full items-center justify-between gap-3 border border-transparent bg-transparent pl-3 pr-2 transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out sm:pl-4 sm:pr-2.5",
+            "pointer-events-auto relative w-full border border-transparent bg-transparent transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out",
             scrolled ? "max-w-7xl" : "max-w-[1680px]",
             scrolled &&
               (overlay
@@ -242,119 +242,121 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
               "bg-frosted-mint/20 backdrop-blur-[2px]",
           )}
         >
-          <div className="flex min-w-0 items-center gap-1 sm:gap-2">
-            <a
-              ref={logoRef}
-              href="#top"
-              className={cn(ENTRANCE_PREPARE_CLASS, "flex shrink-0 items-center")}
-              style={entranceStyle(14, 0)}
-            >
-              <SiteLogo />
-            </a>
+          <div className="flex h-14 w-full items-center justify-between gap-3 pl-3 pr-2 sm:pl-4 sm:pr-2.5">
+            <div className="flex min-w-0 items-center gap-1 sm:gap-2">
+              <a
+                ref={logoRef}
+                href="#top"
+                className={cn(ENTRANCE_PREPARE_CLASS, "flex shrink-0 items-center")}
+                style={entranceStyle(14, 0)}
+              >
+                <SiteLogo />
+              </a>
 
-            <nav
-              ref={navRef}
-              className="relative ml-2 hidden items-center gap-0.5 md:ml-3 md:flex"
-              aria-label="Primary"
-              onMouseLeave={handleLinksLeave}
-            >
-              <div
-                ref={highlightRef}
-                aria-hidden
-                className="pointer-events-none absolute top-0 left-0 border border-border/70 bg-frosted-mint/80 opacity-0 transition-[transform,width,height,opacity] duration-300 ease-out"
-              />
-              {nav.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  data-nav-link
-                  onMouseEnter={handleLinkHover}
-                  className={cn(
-                    ENTRANCE_PREPARE_CLASS,
-                    "relative z-10 px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-                  )}
-                  style={entranceStyle(16, 0)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          <div className="hidden items-center gap-3 md:flex">
-            <a
-              ref={browseMapRef}
-              href="#locations"
-              className={cn(
-                ENTRANCE_PREPARE_CLASS,
-                "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-              )}
-              style={entranceStyle(16, 0)}
-            >
-              Browse map
-            </a>
-            <Button
-              ref={getQuotesRef}
-              className={ENTRANCE_PREPARE_CLASS}
-              style={entranceStyle(16, 0)}
-              onClick={openQuoteModal}
-            >
-              Get quotes
-            </Button>
-          </div>
-
-          <button
-            ref={menuBtnRef}
-            type="button"
-            className={cn(
-              ENTRANCE_PREPARE_CLASS,
-              "inline-flex h-10 w-10 items-center justify-center text-foreground md:hidden",
-            )}
-            style={entranceStyle(12, 0)}
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-
-          {open ? (
-            <div
-              className={cn(
-                "absolute top-[calc(100%+8px)] right-0 left-0 z-50 border border-border bg-background/95 p-2 shadow-sm backdrop-blur-xl md:hidden",
-                overlay && "bg-frosted-mint/95",
-              )}
-            >
-              <nav className="flex flex-col gap-0.5" aria-label="Mobile">
+              <nav
+                ref={navRef}
+                className="relative ml-2 hidden items-center gap-0.5 md:ml-3 md:flex"
+                aria-label="Primary"
+                onMouseLeave={handleLinksLeave}
+              >
+                <div
+                  ref={highlightRef}
+                  aria-hidden
+                  className="pointer-events-none absolute top-0 left-0 border border-border/70 bg-frosted-mint/80 opacity-0 transition-[transform,width,height,opacity] duration-300 ease-out"
+                />
                 {nav.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                    data-nav-link
+                    onMouseEnter={handleLinkHover}
+                    className={cn(
+                      ENTRANCE_PREPARE_CLASS,
+                      "relative z-10 px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                    )}
+                    style={entranceStyle(16, 0)}
                   >
                     {item.label}
                   </a>
                 ))}
-                <a
-                  href="#locations"
-                  onClick={() => setOpen(false)}
-                  className="px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-                >
-                  Browse map
-                </a>
-                <Button
-                  className="mt-1 w-full"
-                  onClick={() => {
-                    setOpen(false)
-                    openQuoteModal()
-                  }}
-                >
-                  Get quotes
-                </Button>
               </nav>
             </div>
-          ) : null}
+
+            <div className="hidden items-center gap-3 md:flex">
+              <a
+                ref={browseMapRef}
+                href="#locations"
+                className={cn(
+                  ENTRANCE_PREPARE_CLASS,
+                  "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                )}
+                style={entranceStyle(16, 0)}
+              >
+                Browse map
+              </a>
+              <Button
+                ref={getQuotesRef}
+                className={ENTRANCE_PREPARE_CLASS}
+                style={entranceStyle(16, 0)}
+                onClick={openQuoteModal}
+              >
+                Get quotes
+              </Button>
+            </div>
+
+            <button
+              ref={menuBtnRef}
+              type="button"
+              className={cn(
+                ENTRANCE_PREPARE_CLASS,
+                "inline-flex h-10 w-10 items-center justify-center text-foreground md:hidden",
+              )}
+              style={entranceStyle(12, 0)}
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={open}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+
+            {open ? (
+              <div
+                className={cn(
+                  "absolute top-[calc(100%+8px)] right-0 left-0 z-50 border border-border bg-background/95 p-2 shadow-sm backdrop-blur-xl md:hidden",
+                  overlay && "bg-frosted-mint/95",
+                )}
+              >
+                <nav className="flex flex-col gap-0.5" aria-label="Mobile">
+                  {nav.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                  <a
+                    href="#locations"
+                    onClick={() => setOpen(false)}
+                    className="px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  >
+                    Browse map
+                  </a>
+                  <Button
+                    className="mt-1 w-full"
+                    onClick={() => {
+                      setOpen(false)
+                      openQuoteModal()
+                    }}
+                  >
+                    Get quotes
+                  </Button>
+                </nav>
+              </div>
+            ) : null}
+          </div>
         </div>
       </header>
 

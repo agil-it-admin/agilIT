@@ -122,7 +122,7 @@ export function GlobeGlArcs() {
             border-radius:6px;
             padding:6px 10px;
             box-shadow:0 4px 14px rgba(8,28,21,.08);
-            font-family:var(--font-work-sans),system-ui,sans-serif;
+            font-family:var(--font-mulish),system-ui,sans-serif;
           ">
             <div style="font-size:12px;font-weight:600;color:#081c15">${p.metro}</div>
             <div style="font-size:11px;color:#6b7280">${p.powerMw} MW · ${p.name}</div>

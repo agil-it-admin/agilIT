@@ -1,14 +1,3 @@
-export const placeholderImages = {
-  serverRoom: "/placeholder-images/Gemini_Generated_Image_e4kjme4kjme4kjme.png",
-  exterior: "/placeholder-images/Gemini_Generated_Image_xq1sk4xq1sk4xq1s.png",
-  coolingAisle: "/placeholder-images/Gemini_Generated_Image_1facrm1facrm1fac.png",
-  landscape: "/placeholder-images/Gemini_Generated_Image_nc8pyvnc8pyvnc8p.png",
-} as const
-
-export type PlaceholderImageKey = keyof typeof placeholderImages
-
-export const placeholderImageList = Object.values(placeholderImages)
-
 export type DatacenterIllustrationVariant =
   | "server-room"
   | "exterior"
@@ -20,13 +9,11 @@ const VARIANTS: DatacenterIllustrationVariant[] = [
   "cooling-aisle",
 ]
 
-export const variantImageMap: Record<
-  DatacenterIllustrationVariant,
-  (typeof placeholderImages)[PlaceholderImageKey]
-> = {
-  "server-room": placeholderImages.serverRoom,
-  exterior: placeholderImages.exterior,
-  "cooling-aisle": placeholderImages.coolingAisle,
+/** Solid color stand-ins for facility / blog imagery. */
+export const variantColorMap: Record<DatacenterIllustrationVariant, string> = {
+  "server-room": "#b7e4c7",
+  exterior: "#95d5b2",
+  "cooling-aisle": "#74c69d",
 }
 
 export function facilityIllustrationVariant(

@@ -6,7 +6,7 @@
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: var(--font-work-sans), 'Work Sans', system-ui, sans-serif;
+  --font-sans: var(--font-mulish), 'Mulish', system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --color-frosted-mint: #d8f3dc;
   --color-frosted-mint-100: #16461d;
