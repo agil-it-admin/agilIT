@@ -39,6 +39,9 @@ function clearEntranceProps(el: Element) {
 export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  // Once entrance finishes, never put entrance-prepare back (scroll re-renders
+  // were re-hiding the nav after GSAP cleared the class from the DOM).
+  const [entered, setEntered] = useState(false)
   const { openQuoteModal } = useQuoteModal()
   const headerRef = useRef<HTMLElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
@@ -88,6 +91,8 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
     const bar = barRef.current
     if (!header || !bar) return
 
+    let cancelled = false
+
     const navLinks = navRef.current
       ? Array.from(navRef.current.querySelectorAll("[data-nav-link]"))
       : []
@@ -102,8 +107,14 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
       menuBtnRef.current,
     ].filter(Boolean) as Element[]
 
-    if (getPrefersReducedMotion()) {
+    const finishEntrance = () => {
+      if (cancelled) return
       animatedEls.forEach(clearEntranceProps)
+      setEntered(true)
+    }
+
+    if (getPrefersReducedMotion()) {
+      finishEntrance()
       return
     }
 
@@ -131,10 +142,15 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         y: 0,
         duration: 0.65,
         ease: ENTRANCE_EASE,
-        onComplete: () => clearEntranceProps(header),
+        onComplete: () => {
+          if (!cancelled) clearEntranceProps(header)
+        },
       })
 
-      const tl = gsap.timeline({ defaults: { ease: ENTRANCE_EASE_OUT } })
+      const tl = gsap.timeline({
+        defaults: { ease: ENTRANCE_EASE_OUT },
+        onComplete: finishEntrance,
+      })
 
       if (logoRef.current) {
         tl.to(
@@ -143,7 +159,9 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             autoAlpha: 1,
             y: 0,
             duration: 0.6,
-            onComplete: () => clearEntranceProps(logoRef.current!),
+            onComplete: () => {
+              if (!cancelled) clearEntranceProps(logoRef.current!)
+            },
           },
           0.12,
         )
@@ -164,7 +182,9 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             el,
             {
               ...navTween,
-              onComplete: () => clearEntranceProps(el),
+              onComplete: () => {
+                if (!cancelled) clearEntranceProps(el)
+              },
             },
             navStart + i * navStagger,
           )
@@ -176,7 +196,9 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             el,
             {
               ...navTween,
-              onComplete: () => clearEntranceProps(el),
+              onComplete: () => {
+                if (!cancelled) clearEntranceProps(el)
+              },
             },
             parallelStart,
           )
@@ -194,6 +216,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             duration: ctaDuration,
             ease: ENTRANCE_EASE_OUT,
             onComplete: () => {
+              if (cancelled) return
               clearEntranceProps(browseMapRef.current!)
               clearEntranceProps(getQuotesRef.current!)
             },
@@ -208,14 +231,19 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             autoAlpha: 1,
             y: 0,
             duration: 0.5,
-            onComplete: () => clearEntranceProps(menuBtnRef.current!),
+            onComplete: () => {
+              if (!cancelled) clearEntranceProps(menuBtnRef.current!)
+            },
           },
           0.28,
         )
       }
     }, header)
 
-    return () => ctx.revert()
+    return () => {
+      cancelled = true
+      ctx.revert()
+    }
   }, [])
 
   return (
@@ -223,16 +251,20 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
       <header
         ref={headerRef}
         className={cn(
-          ENTRANCE_PREPARE_CLASS,
-          "pointer-events-none fixed inset-x-0 top-3 z-50 flex flex-col items-center px-4 sm:top-4 sm:px-6 lg:px-8",
+          !entered && ENTRANCE_PREPARE_CLASS,
+          "pointer-events-none fixed inset-x-0 z-50 flex flex-col items-center transition-[padding,top] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          scrolled
+            ? "top-3 px-4 sm:top-4 sm:px-6 lg:px-8"
+            : "top-0 px-0",
         )}
-        style={entranceStyle(-20, 0)}
+        style={entered ? undefined : entranceStyle(-20, 0)}
       >
         <div
           ref={barRef}
           className={cn(
-            "pointer-events-auto relative w-full border border-transparent bg-transparent transition-[max-width,background-color,border-color,box-shadow,backdrop-filter,border-radius] duration-500 ease-out",
-            scrolled ? "max-w-7xl rounded-[18px]" : "max-w-[1680px] rounded-none",
+            // Use max-w-full (not max-w-none) so width can interpolate to max-w-7xl
+            "pointer-events-auto relative w-full border border-transparent bg-transparent transition-[max-width,background-color,border-color,box-shadow,backdrop-filter,border-radius] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            scrolled ? "max-w-7xl rounded-[18px]" : "max-w-full rounded-none",
             scrolled &&
               (overlay
                 ? "border-border/60 bg-background/75 shadow-sm backdrop-blur-xl backdrop-saturate-150"
@@ -248,10 +280,10 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 ref={logoRef}
                 href="#top"
                 className={cn(
-                  ENTRANCE_PREPARE_CLASS,
+                  !entered && ENTRANCE_PREPARE_CLASS,
                   "relative z-20 flex shrink-0 items-center py-0.5",
                 )}
-                style={entranceStyle(14, 0)}
+                style={entered ? undefined : entranceStyle(14, 0)}
                 aria-label="Colonegotiator home — powered by agil.IT"
               >
                 <SiteBrand />
@@ -275,10 +307,10 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                     data-nav-link
                     onMouseEnter={handleLinkHover}
                     className={cn(
-                      ENTRANCE_PREPARE_CLASS,
+                      !entered && ENTRANCE_PREPARE_CLASS,
                       "relative z-10 px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
                     )}
-                    style={entranceStyle(16, 0)}
+                    style={entered ? undefined : entranceStyle(16, 0)}
                   >
                     {item.label}
                   </a>
@@ -291,17 +323,17 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 ref={browseMapRef}
                 href="#locations"
                 className={cn(
-                  ENTRANCE_PREPARE_CLASS,
+                  !entered && ENTRANCE_PREPARE_CLASS,
                   "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
                 )}
-                style={entranceStyle(16, 0)}
+                style={entered ? undefined : entranceStyle(16, 0)}
               >
                 Browse map
               </a>
               <Button
                 ref={getQuotesRef}
-                className={ENTRANCE_PREPARE_CLASS}
-                style={entranceStyle(16, 0)}
+                className={!entered ? ENTRANCE_PREPARE_CLASS : undefined}
+                style={entered ? undefined : entranceStyle(16, 0)}
                 onClick={openQuoteModal}
               >
                 Talk to an advisor
@@ -312,10 +344,10 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
               ref={menuBtnRef}
               type="button"
               className={cn(
-                ENTRANCE_PREPARE_CLASS,
+                !entered && ENTRANCE_PREPARE_CLASS,
                 "inline-flex h-10 w-10 items-center justify-center text-foreground md:hidden",
               )}
-              style={entranceStyle(12, 0)}
+              style={entered ? undefined : entranceStyle(12, 0)}
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
               aria-expanded={open}
