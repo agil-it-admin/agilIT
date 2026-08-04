@@ -70,27 +70,38 @@ export function BlogSection() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_10%,rgba(183,228,199,0.32),transparent_55%),radial-gradient(ellipse_45%_35%_at_10%_90%,rgba(216,243,220,0.35),transparent_50%)]"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <p className="text-sm font-medium text-sea-green">
-            Resource Center / Blog
-          </p>
-          <h2 className="mt-4 max-w-3xl text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
-            Trends and levers for enterprise colo
-          </h2>
-          <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-pine-teal/80">
-            Pricing benchmarks, renewal playbooks, and procurement-ready guides
-            for teams sourcing enterprise colocation—so you walk into the next
-            deal with leverage.
-          </p>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-sm font-medium text-sea-green">
+                Resource Center / Blog
+              </p>
+              <h2 className="mt-4 text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+                Trends and levers for enterprise colo
+              </h2>
+              <p className="mt-5 text-pretty text-lg leading-relaxed text-pine-teal/80">
+                Pricing benchmarks, renewal playbooks, and procurement-ready
+                guides for teams sourcing enterprise colocation—so you walk into
+                the next deal with leverage.
+              </p>
+            </div>
+            <Link
+              href="/blog"
+              className="group/cta inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-sea-green transition-colors hover:text-dark-emerald"
+            >
+              Browse all articles
+              <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-0.5" />
+            </Link>
+          </div>
 
           <div className="mt-8 flex flex-wrap gap-2">
             {blogCategories.map((category) => (
-              <a
+              <Link
                 key={category}
-                href={`#category-${category.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/blog#category-${category.toLowerCase().replace(/\s+/g, "-")}`}
                 className="rounded-full border border-border bg-background/80 px-3.5 py-1.5 text-xs font-medium text-pine-teal/80 transition-colors hover:border-sea-green/40 hover:text-evergreen"
               >
                 {category}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

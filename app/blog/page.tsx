@@ -1,15 +1,13 @@
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { BlogSection } from "@/components/blog-section"
+import { BlogIndex } from "@/components/blog-index"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Resource Center — Colonegotiator",
   description:
-    "Enterprise colocation pricing trends, renewal playbooks, and sourcing guides for mid-to-large organizations.",
-  description:
-    "Guides, pricing benchmarks, quick tips, and expert insight for teams sourcing colocation, cloud, and connectivity.",
+    "Browse enterprise colocation pricing trends, renewal playbooks, and sourcing guides for mid-to-large organizations.",
 }
 
 export default function BlogIndexPage() {
@@ -20,14 +18,14 @@ export default function BlogIndexPage() {
         <div className="border-b border-border/60 bg-muted/20">
           <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
             <Link
-              href="/"
+              href="/#blog"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               ← Home
             </Link>
           </div>
         </div>
-        <BlogSection />
+        <BlogIndex />
       </main>
       <SiteFooter />
     </div>

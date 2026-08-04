@@ -27,7 +27,7 @@ const nav = [
   { label: "Locations", href: "#locations" },
   { label: "Why Us", href: "#testimonials" },
   { label: "Team", href: "#team" },
-  { label: "Resources", href: "#blog" },
+  { label: "Resources", href: "/blog" },
   { label: "FAQ", href: "#faq" },
 ]
 
@@ -271,7 +271,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             <div className="flex min-w-0 items-center gap-1 sm:gap-2">
               <a
                 ref={logoRef}
-                href="#top"
+                href="/"
                 className={cn(
                   !entered && ENTRANCE_PREPARE_CLASS,
                   "relative z-20 flex shrink-0 items-center py-0.5",
