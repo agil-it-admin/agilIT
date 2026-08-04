@@ -52,14 +52,15 @@ export function Testimonials() {
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="max-w-2xl">
           <p className="text-sm font-medium text-mint-leaf">
-            Why teams choose us
+            Why enterprises choose us
           </p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Infrastructure decisions, made with confidence.
+            Colocation decisions, backed by sourcing credibility.
           </h2>
           <p className="mt-4 text-celadon/90">
-            Hear from infrastructure leaders who used agil.IT to match
-            workload, compliance, and latency requirements.
+            Hear from infrastructure leaders who used Colonegotiator to source
+            enterprise colo—on terms, power, and timelines that held up in
+            procurement.
           </p>
         </div>
 

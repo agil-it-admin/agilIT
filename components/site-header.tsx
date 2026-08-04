@@ -23,7 +23,7 @@ import {
 } from "@/lib/motion"
 
 const nav = [
-  { label: "Services", href: "#services" },
+  { label: "Sourcing", href: "#services" },
   { label: "Locations", href: "#locations" },
   { label: "Why Us", href: "#testimonials" },
   { label: "Team", href: "#team" },
@@ -267,7 +267,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
               "bg-frosted-mint/20 backdrop-blur-[2px]",
           )}
         >
-          <div className="flex h-16 w-full items-center justify-between gap-3 pl-3 pr-2 sm:h-[4.25rem] sm:pl-4 sm:pr-2.5">
+          <div className="flex h-16 w-full items-center justify-between gap-3 pl-3 pr-2 sm:h-[4.25rem] sm:pl-4 sm:pr-2.5 lg:px-8">
             <div className="flex min-w-0 items-center gap-1 sm:gap-2">
               <a
                 ref={logoRef}
@@ -318,7 +318,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 style={entered ? undefined : entranceStyle(16, 0)}
                 onClick={openQuoteModal}
               >
-                Talk to an advisor
+                Start sourcing
               </Button>
             </div>
 
@@ -362,7 +362,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                       openQuoteModal()
                     }}
                   >
-                    Talk to an advisor
+                    Start sourcing
                   </Button>
                 </nav>
               </div>

@@ -17,7 +17,7 @@ export function BackboneStats() {
     <SpotlightZone className="border-y border-border bg-evergreen text-frosted-mint">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <p className="text-center text-sm font-medium text-mint-leaf">
-          The backbone of hybrid infrastructure
+          Built for enterprise colocation sourcing
         </p>
         <div className="mt-10 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, index) => (

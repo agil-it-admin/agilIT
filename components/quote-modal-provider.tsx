@@ -40,9 +40,9 @@ const intentCopy: Record<
   { title: string; description: string }
 > = {
   advisor: {
-    title: "Talk to an advisor",
+    title: "Start sourcing",
     description:
-      "Share a bit about your footprint and an advisor will follow up within one business day — free and vendor-neutral.",
+      "Share your enterprise colo footprint—cabinets through ~1 MW—and a sourcer will follow up within one business day. Free and vendor-neutral.",
   },
   report: {
     title: "Request the report",
@@ -52,7 +52,7 @@ const intentCopy: Record<
   "contract-review": {
     title: "Request a free contract review",
     description:
-      "Share your MSA or renewal notice. We’ll flag uplift risk, escalator exposure, and where a market check could reset leverage.",
+      "Share your MSA or renewal notice. We’ll flag uplift risk, escalator exposure, and where a market check could reset leverage on a 3–5 year term.",
   },
 }
 

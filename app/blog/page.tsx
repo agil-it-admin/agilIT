@@ -7,6 +7,8 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Resource Center — Colonegotiator",
   description:
+    "Enterprise colocation pricing trends, renewal playbooks, and sourcing guides for mid-to-large organizations.",
+  description:
     "Guides, pricing benchmarks, quick tips, and expert insight for teams sourcing colocation, cloud, and connectivity.",
 }
 

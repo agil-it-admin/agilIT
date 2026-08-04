@@ -33,10 +33,10 @@ const initial: FormData = {
 }
 
 const serviceOptions = [
-  "Colocation",
-  "Hybrid Cloud",
-  "Bare Metal",
-  "Connectivity",
+  "New colo deployment",
+  "Renewal / renegotiation",
+  "Expansion in place",
+  "Multi-metro / DR",
 ]
 const regionOptions = [
   "West",
@@ -49,17 +49,17 @@ const regionOptions = [
 const powerOptions = [
   "1–5 racks",
   "Half cage / 6–20 racks",
-  "Private suite / 20+ racks",
-  "1 MW+ / wholesale",
+  "Private suite / up to ~500 kW",
+  "Up to ~1 MW",
 ]
 const timelineOptions = [
   "Immediately",
   "1–3 months",
   "3–6 months",
-  "Just exploring",
+  "Planning a 3–5 year term",
 ]
 
-const steps = ["Service", "Footprint", "Timeline", "Contact"]
+const steps = ["Need", "Footprint", "Timeline", "Contact"]
 
 export function IntakeForm() {
   return (
@@ -70,21 +70,21 @@ export function IntakeForm() {
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-24">
           <span className="text-sm font-medium text-mint-leaf">
-            Get matched
+            Start sourcing
           </span>
           <h2 className="mt-2 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-            Tell us what you need. We&apos;ll do the sourcing.
+            Tell us the deal. We&apos;ll source the colo.
           </h2>
           <p className="mt-4 text-pretty text-lg leading-relaxed text-celadon/90">
-            Answer four quick questions and a dedicated advisor returns two to
-            four matched facilities within one business day. Always free, always
-            vendor-neutral.
+            Answer four quick questions and a dedicated sourcer returns two to
+            four matched facilities within one business day—sized for enterprise
+            colo through ~1 MW. Always free, always vendor-neutral.
           </p>
           <ul className="mt-8 space-y-3">
             {[
-              "No sales pressure—advice first",
-              "Compliance-aware matching",
-              "Negotiated pricing across our network",
+              "Enterprise colo focus—not a general IT marketplace",
+              "Commercial leverage on 3–5 year terms",
+              "Shortlists procurement can stand behind",
             ].map((item) => (
               <li key={item} className="flex items-center gap-3 text-celadon/90">
                 <span className="flex h-6 w-6 items-center justify-center border border-white/15 text-mint-leaf">
@@ -138,9 +138,9 @@ export function IntakeFormContent({ className }: { className?: string }) {
             Request received
           </h3>
           <p className="mt-2 max-w-sm text-muted-foreground">
-            Thanks, {data.name.split(" ")[0] || "there"}. An advisor will email{" "}
+            Thanks, {data.name.split(" ")[0] || "there"}. A sourcer will email{" "}
             {data.email || "you"} within one business day with matched facilities
-            for your {data.service.toLowerCase() || "deployment"}.
+            for your {data.service.toLowerCase() || "enterprise colo"} need.
           </p>
           <Button
             variant="outline"
@@ -188,8 +188,8 @@ export function IntakeFormContent({ className }: { className?: string }) {
           <form onSubmit={handleSubmit} className="mt-8">
             {step === 0 && (
               <Fieldset
-                legend="Which service are you sourcing?"
-                help="Pick the model that best fits your workload."
+                legend="What are you sourcing?"
+                    help="Pick the colo need that best fits this engagement."
               >
                 <OptionGrid
                   options={serviceOptions}
@@ -313,8 +313,8 @@ export function IntakeFormContent({ className }: { className?: string }) {
                     </>
                   ) : (
                     <>
-                      Get my matches
-                      <ArrowRight className="h-4 w-4" />
+                      Get my shortlist
+                          <ArrowRight className="h-4 w-4" />
                     </>
                   )}
                 </Button>

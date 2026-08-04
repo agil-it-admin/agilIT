@@ -2,8 +2,8 @@ import { SiteLogo } from "@/components/site-logo"
 
 const columns = [
   {
-    title: "Services",
-    links: ["Colocation", "Hybrid Cloud", "Bare Metal", "Connectivity"],
+    title: "Sourcing",
+    links: ["Enterprise colo", "Renewals", "Contract review", "Benchmarks"],
   },
   {
     title: "Company",
@@ -11,7 +11,7 @@ const columns = [
   },
   {
     title: "Resources",
-    links: ["Resource Center", "Location finder", "Tier guide", "Compliance"],
+    links: ["Resource Center", "Pricing trends", "Term guides", "Compliance"],
   },
 ]
 
@@ -23,8 +23,8 @@ export function SiteFooter() {
           <div>
             <SiteLogo className="h-10" />
             <p className="mt-4 max-w-sm text-pretty leading-relaxed text-muted-foreground">
-              The vendor-neutral marketplace for data center, colocation, cloud,
-              and connectivity. Free sourcing, expert advisors, faster decisions.
+              Vendor-neutral enterprise colocation sourcing for mid-to-large
+              organizations—cabinets through ~1 MW, typically on 3–5 year terms.
             </p>
           </div>
 

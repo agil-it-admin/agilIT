@@ -12,22 +12,21 @@ export function Hero() {
         <div className="max-w-3xl">
           <EntranceReveal delay={0.52} y={16} duration={0.65}>
             <span className="text-sm font-medium text-pine-teal/80">
-              Trusted data center & colocation marketplace
+              Enterprise colocation sourcing
             </span>
           </EntranceReveal>
 
           <EntranceReveal delay={0.62} y={28} duration={0.8}>
             <h1 className="mt-5 text-pretty text-4xl font-semibold leading-[1.06] tracking-tight text-pine-teal sm:text-5xl lg:text-6xl">
-              Find the right data center for your workload—without the
-              guesswork.
+              The sourcing partner for enterprise colocation.
             </h1>
           </EntranceReveal>
 
           <EntranceReveal delay={0.74} y={22} duration={0.75}>
             <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-pine-teal/85 sm:text-xl">
-              Compare colocation, hybrid cloud, bare metal, and connectivity
-              across 200+ metros. Tell us your requirements once and our
-              advisors return matched, quote-ready facilities.
+              Mid-to-large enterprises trust us to source cabinets through ~1 MW
+              deals—typically on 3–5 year terms. We bring market leverage,
+              negotiated pricing, and a shortlist you can take to procurement.
             </p>
           </EntranceReveal>
 
@@ -41,7 +40,7 @@ export function Hero() {
             {/* Wrapper keeps GSAP off Button transition-all (avoids jitter) */}
             <div className="inline-flex">
               <QuoteCtaButton size="lg">
-                Talk to an advisor
+                Start sourcing
                 <ArrowRight className="h-4 w-4" />
               </QuoteCtaButton>
             </div>

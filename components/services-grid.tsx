@@ -52,13 +52,14 @@ export function ServicesGrid() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <p className="text-sm font-medium text-sea-green">Compare services</p>
+            <p className="text-sm font-medium text-sea-green">Sourcing levers</p>
             <h2 className="mt-4 text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
-              Every deployment model, side by side
+              The trends and levers that win colo deals
             </h2>
             <p className="mt-5 text-pretty text-lg leading-relaxed text-pine-teal/80">
-              From dedicated cabinets to elastic cloud, see how each option maps
-              to your performance, scale, and budget requirements.
+              Footprint, commercials, site selection, and power density—side by
+              side—so mid-to-large enterprises can source colocation with
+              confidence through ~1 MW.
             </p>
           </div>
           <button
@@ -66,7 +67,7 @@ export function ServicesGrid() {
             onClick={openQuoteModal}
             className="group/cta inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-sea-green transition-colors hover:text-dark-emerald"
           >
-            Talk through your mix
+            Start sourcing
             <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-0.5" />
           </button>
         </div>
@@ -75,7 +76,7 @@ export function ServicesGrid() {
         <div className="mt-14 hidden overflow-hidden rounded-[22px] bg-background/80 shadow-[0_28px_64px_-36px_rgba(8,28,21,0.35)] ring-1 ring-black/4 backdrop-blur-sm lg:block">
           <div className="grid grid-cols-[1.15fr_repeat(4,1fr)] border-b border-border/70 bg-[#f7faf8]/80">
             <div className="px-6 py-5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
-              What we source
+              What we source on
             </div>
             {services.map((service) => {
               const Icon = iconMap[service.icon] ?? Server

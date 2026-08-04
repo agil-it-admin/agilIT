@@ -206,63 +206,63 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    id: "colocation",
-    name: "Colocation",
-    tagline: "Your hardware in resilient facilities",
+    id: "footprint",
+    name: "Footprint",
+    tagline: "Cabinets through ~1 MW",
     icon: "server",
-    bestFor: "Predictable workloads & hardware control",
-    weHelpWith: "Cage and cabinet sourcing across carrier-neutral sites",
-    deployTime: "2–4 weeks typical",
+    bestFor: "Enterprise colo deployments under 1 MW",
+    weHelpWith: "Retail to suite shortlists sized to your power draw",
+    deployTime: "2–6 weeks typical",
     features: [
-      "Wholesale & retail footprint matching",
+      "Cabinet, half-cage & suite matching",
       "Power density & redundancy screening",
       "Remote hands & cross-connect options",
       "Multi-metro shortlists in one brief",
     ],
   },
   {
-    id: "cloud",
-    name: "Hybrid Cloud",
-    tagline: "Burst to public cloud on demand",
-    icon: "cloud",
-    bestFor: "Variable, scaling workloads",
-    weHelpWith: "On-ramp design and private interconnect options",
-    deployTime: "Days to first interconnect",
+    id: "commercials",
+    name: "Commercials",
+    tagline: "3–5 year deal leverage",
+    icon: "shield",
+    bestFor: "Renewals, new MSAs & term negotiations",
+    weHelpWith: "Escalators, uplift caps, and market-check leverage",
+    deployTime: "Aligned to your renewal window",
     features: [
-      "Direct connect to AWS, Azure & GCP",
-      "Hybrid placement recommendations",
-      "Interconnect fabric comparisons",
-      "Governance-friendly architectures",
+      "Escalator & uplift risk review",
+      "Apples-to-apples commercial grids",
+      "Term structure for 3–5 year deals",
+      "Vendor-neutral negotiation support",
     ],
   },
   {
-    id: "bare-metal",
-    name: "Bare Metal",
-    tagline: "Dedicated servers, cloud agility",
+    id: "site-selection",
+    name: "Site selection",
+    tagline: "Metro strategy that fits the workload",
+    icon: "globe",
+    bestFor: "Primary, DR & multi-metro colo programs",
+    weHelpWith: "Latency, compliance, and capacity-aware metro picks",
+    deployTime: "1–3 weeks to shortlist",
+    features: [
+      "Metro & campus capacity checks",
+      "Compliance filter (SOC 2, HIPAA, PCI)",
+      "Interconnect & carrier density",
+      "Primary + DR pairing options",
+    ],
+  },
+  {
+    id: "power-cooling",
+    name: "Power & density",
+    tagline: "Right-size kW before you sign",
     icon: "cpu",
-    bestFor: "High-performance & GPU workloads",
-    weHelpWith: "Provider matching for CPU, GPU, and density needs",
-    deployTime: "Often live in 24–72 hours",
+    bestFor: "Growing racks, AI islands & density upgrades",
+    weHelpWith: "Draw vs. reserved power and cooling headroom",
+    deployTime: "Often within one business week",
     features: [
-      "Latest-gen CPU & GPU node options",
-      "API-provisioned dedicated hosts",
-      "High-throughput network profiles",
-      "No noisy-neighbor contention",
-    ],
-  },
-  {
-    id: "connectivity",
-    name: "Connectivity",
-    tagline: "Low-latency global network reach",
-    icon: "network",
-    bestFor: "Multi-site & edge architectures",
-    weHelpWith: "Transport, transit, and path-diversity sourcing",
-    deployTime: "1–3 weeks typical",
-    features: [
-      "Dedicated & wavelength transport",
-      "Blended & burstable IP transit",
-      "Diverse path & entrance checks",
-      "SLA-backed uptime requirements",
+      "Actual draw vs. reserved power",
+      "Density & cooling readiness",
+      "Expansion path inside the facility",
+      "Avoid overbuy on day-one power",
     ],
   },
 ];
@@ -277,23 +277,23 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "We narrowed 40 facilities down to three finalists in an afternoon. The intake matched us with the exact power density and compliance profile our trading platform needed.",
+      "We needed a ~400 kW colo footprint on a five-year term. They shortlisted three facilities with real commercial leverage—not a pile of brochures—and procurement signed in weeks.",
     name: "Priya Nadar",
     role: "VP of Infrastructure",
     company: "Quanta Markets",
   },
   {
     quote:
-      "Migrating from a single cage to a hybrid cloud footprint felt impossible. Their advisors handled carrier negotiations and we cut our latency to AWS in half.",
+      "Our renewal had a steep escalator baked in. Their market check reset the conversation and saved us from locking in three more years of above-market power.",
     name: "Marcus Bell",
     role: "Director of IT",
     company: "Northbound Health",
   },
   {
     quote:
-      "The comparison grid gave our procurement team the apples-to-apples view we always struggled to build ourselves. Vendor selection went from months to weeks.",
+      "Finally, someone who sources enterprise colo for a living. The comparison grid gave our leadership the confidence to move—and the numbers held up in diligence.",
     name: "Elena Fischer",
-    role: "Head of Cloud Ops",
+    role: "Head of Infrastructure Ops",
     company: "Ardent Logistics",
   },
 ];
@@ -325,37 +325,37 @@ export type Faq = {
 
 export const faqs: Faq[] = [
   {
-    question: "Is there any cost to use the platform?",
+    question: "Is there any cost to use Colonegotiator?",
     answer:
-      "No. Sourcing data center, colocation, and connectivity quotes through our platform is completely free. We are compensated by our provider network once you sign a contract, so our advisory services come at no cost to you.",
+      "No. Enterprise colocation sourcing through us is free to you. We are compensated by the provider network when you sign, so advisory, shortlists, and negotiation support come at no cost to your team.",
+  },
+  {
+    question: "What deal sizes do you focus on?",
+    answer:
+      "We specialize in mid-to-large enterprise colocation—from a handful of cabinets up through roughly 1 MW. Most engagements land on 3–5 year terms. If you are shopping multi-megawatt wholesale campuses, we can still advise, but that is not our core lane.",
   },
   {
     question: "How quickly will I hear back after submitting requirements?",
     answer:
-      "A dedicated advisor reviews your requirements and responds within one business day, typically with two to four matched facilities that fit your power, space, compliance, and budget criteria.",
-  },
-  {
-    question: "Can you help with multi-region or international deployments?",
-    answer:
-      "Yes. Our network spans 200+ metros across North America, EMEA, and APAC. We routinely design multi-region and edge architectures with redundant connectivity between sites.",
+      "A dedicated sourcer reviews your requirements and responds within one business day, typically with two to four matched facilities that fit your power, term, compliance, and commercial criteria.",
   },
   {
     question: "Do you support compliance-sensitive workloads?",
     answer:
-      "Absolutely. We filter for SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP, and FINRA-aligned facilities so regulated organizations only see compliant options.",
+      "Yes. We filter for SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP, and FINRA-aligned facilities so regulated organizations only see compliant colo options.",
   },
   {
-    question: "What if I only need a single cabinet?",
+    question: "Can you help with renewals—not just new deals?",
     answer:
-      "Deployments of every size are welcome — from a single quarter-cabinet to multi-megawatt campuses. The same matching process and advisory support applies regardless of footprint.",
+      "Absolutely. Renewals are where escalators and uplift often hide. We run a market check against your current MSA so you know whether to renew, renegotiate, or go back to market before the window closes.",
   },
 ];
 
 export const stats = [
-  { value: "1,400+", label: "Facilities in network" },
-  { value: "200+", label: "Global metros" },
-  { value: "11M+", label: "Sq ft sourced" },
-  { value: "48hr", label: "Avg. quote turnaround" },
+  { value: "1,400+", label: "Facilities we source from" },
+  { value: "~1 MW", label: "Deal size focus" },
+  { value: "3–5 yr", label: "Typical term length" },
+  { value: "1 day", label: "Avg. first shortlist response" },
 ];
 
 export type TeamMember = {
@@ -369,13 +369,13 @@ export const team: TeamMember[] = [
   {
     id: "brad-mclaughlin",
     name: "Brad McLaughlin",
-    role: "Managing Partner",
+    role: "Enterprise Colo Sourcer",
     image: "/placeholder-images/people/brad-mclaughlin.jpg",
   },
   {
     id: "patrick-ellis",
     name: "Patrick Ellis",
-    role: "Principal Advisor",
+    role: "Principal Sourcing Advisor",
     image: "/placeholder-images/people/1582124128804.webp",
   },
 ];

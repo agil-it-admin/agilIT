@@ -52,15 +52,15 @@ export const expertInsights = [
     quote:
       "Most renewals fail because teams negotiate rate before they negotiate leverage. Bring competing options to the table first — then talk price.",
     name: "Brad McLaughlin",
-    role: "Managing Partner",
-    focus: "Contract Negotiation",
+    role: "Enterprise Colo Sourcer",
+    focus: "3–5 Year Terms",
   },
   {
     quote:
       "Power density is the new geography. If your site plan ignores sustained kW per rack, you’re not selecting a facility — you’re selecting a bottleneck.",
     name: "Patrick Ellis",
-    role: "Principal Advisor",
-    focus: "AI Infrastructure",
+    role: "Principal Sourcing Advisor",
+    focus: "Power & Density",
   },
 ]
 

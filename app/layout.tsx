@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Colonegotiator — Find & Compare Data Center, Colocation & Cloud',
+  title: 'Colonegotiator — Enterprise Colocation Sourcing',
   description:
-    'Colonegotiator matches your workload with the right data center, colocation, bare metal, and connectivity providers across 200+ metros. Free, advisor-led sourcing.',
+    'Vendor-neutral enterprise colocation sourcing for mid-to-large organizations. Cabinets through ~1 MW, typically on 3–5 year terms. Free advisory, negotiated pricing, credibility you can take to procurement.',
   generator: 'v0.app',
   icons: {
     icon: [

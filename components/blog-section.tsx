@@ -74,12 +74,12 @@ export function BlogSection() {
             Resource Center / Blog
           </p>
           <h2 className="mt-4 max-w-3xl text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
-            Guides from the data center floor
+            Trends and levers for enterprise colo
           </h2>
           <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-pine-teal/80">
-            Strategy, pricing, and procurement playbooks for teams sourcing
-            colocation, cloud, and connectivity — plus quick tips you can use
-            before the next renewal call.
+            Pricing benchmarks, renewal playbooks, and procurement-ready guides
+            for teams sourcing enterprise colocation—so you walk into the next
+            deal with leverage.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-2">
@@ -307,7 +307,7 @@ export function BlogSection() {
         <div className="max-w-2xl">
           <p className="text-sm font-medium text-sea-green">Expert Insight</p>
           <h3 className="mt-2 text-2xl font-semibold tracking-tight text-evergreen sm:text-3xl">
-            From the advisory team
+            From the sourcing team
           </h3>
         </div>
 

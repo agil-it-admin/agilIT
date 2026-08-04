@@ -28,21 +28,21 @@ export function GlobalNetwork() {
       />
       <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:py-28">
         <div>
-          <p className="text-sm font-medium text-sea-green">Global network</p>
+          <p className="text-sm font-medium text-sea-green">Provider network</p>
           <h2 className="mt-4 text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
-            See capacity across metros — then drill into a facility.
+            Capacity across the metros that matter for enterprise colo.
           </h2>
           <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed text-pine-teal/80">
-            Explore our provider footprint across 200+ metros. Trace routes,
-            spot density hubs, and shortlist facilities that fit your power,
-            compliance, and interconnect needs.
+            We source from a vetted facility network so your shortlist reflects
+            real power, compliance, and commercial options—not brochure
+            capacity.
           </p>
           <button
             type="button"
             onClick={openQuoteModal}
             className="group/cta mt-9 inline-flex items-center gap-2 text-sm font-semibold text-sea-green transition-colors hover:text-dark-emerald"
           >
-            Talk to an advisor
+            Start sourcing
             <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-0.5" />
           </button>
         </div>

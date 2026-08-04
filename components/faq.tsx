@@ -22,11 +22,10 @@ export function Faq() {
         <div className="text-center">
           <p className="text-sm font-medium text-sea-green">FAQ</p>
           <h2 className="mt-4 text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl">
-            Questions, answered
+            Enterprise colo sourcing, clarified
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-pretty text-lg leading-relaxed text-pine-teal/75">
-            Straight answers on how sourcing works, what it costs, and how fast
-            we move.
+            Straight answers on deal size, cost, renewals, and how fast we move.
           </p>
         </div>
 

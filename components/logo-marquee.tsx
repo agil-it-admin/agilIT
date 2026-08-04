@@ -35,7 +35,7 @@ function LogoSet({ ariaHidden }: { ariaHidden?: boolean }) {
 export function LogoMarquee() {
   return (
     <section
-      aria-label="Partner network"
+      aria-label="Enterprise colo partner network"
       className="logo-marquee-fade mt-6 shrink-0 overflow-hidden border-y border-border bg-background/25 sm:mt-8 lg:mt-16"
     >
       <div className="logo-marquee flex w-max items-center gap-12 py-4 sm:gap-16 sm:py-5 md:gap-20">

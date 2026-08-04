@@ -75,7 +75,7 @@ function SuccessState({
   )
 }
 
-/** Talk to an advisor — contact + short brief */
+/** Start sourcing — contact + short brief */
 export function AdvisorLeadForm({ className }: { className?: string }) {
   const formId = useId()
   const [status, setStatus] = useState<"idle" | "submitting" | "done">("idle")
@@ -97,8 +97,8 @@ export function AdvisorLeadForm({ className }: { className?: string }) {
   if (status === "done") {
     return (
       <SuccessState
-        title="Advisor request received"
-        body={`Thanks, ${data.name.split(" ")[0] || "there"}. An advisor will reach out at ${data.email} within one business day.`}
+        title="Sourcing request received"
+        body={`Thanks, ${data.name.split(" ")[0] || "there"}. A sourcer will reach out at ${data.email} within one business day.`}
         onReset={() => {
           setData({ name: "", email: "", company: "", topic: "", details: "" })
           setStatus("idle")
@@ -139,7 +139,7 @@ export function AdvisorLeadForm({ className }: { className?: string }) {
           htmlFor={`${formId}-topic`}
           className="block text-sm font-medium text-foreground"
         >
-          What do you want to discuss?
+          What are you sourcing?
         </label>
         <select
           id={`${formId}-topic`}
@@ -148,10 +148,10 @@ export function AdvisorLeadForm({ className }: { className?: string }) {
           className={inputClass}
         >
           <option value="">Select a topic</option>
-          <option value="new-deployment">New deployment / RFP</option>
-          <option value="renewal">Renewal or expansion</option>
-          <option value="hybrid">Hybrid / interconnect design</option>
-          <option value="ai">AI / high-density capacity</option>
+          <option value="new-deployment">New enterprise colo / RFP</option>
+          <option value="renewal">Renewal or renegotiation</option>
+          <option value="expansion">Expansion in place (up to ~1 MW)</option>
+          <option value="multi-metro">Multi-metro / DR colo</option>
           <option value="other">Something else</option>
         </select>
       </div>
@@ -184,7 +184,7 @@ export function AdvisorLeadForm({ className }: { className?: string }) {
           </>
         ) : (
           <>
-            Talk to an advisor
+            Start sourcing
             <ArrowRight className="size-4" />
           </>
         )}
@@ -308,7 +308,7 @@ export function ContractReviewLeadForm({ className }: { className?: string }) {
     return (
       <SuccessState
         title="Review request received"
-        body={`Thanks, ${data.name.split(" ")[0] || "there"}. An advisor will review ${file ? file.name : "your contract details"} and follow up at ${data.email}.`}
+        body={`Thanks, ${data.name.split(" ")[0] || "there"}. A sourcer will review ${file ? file.name : "your contract details"} and follow up at ${data.email}.`}
         onReset={() => {
           setData({ name: "", email: "", company: "", renewal: "", notes: "" })
           setFile(null)
