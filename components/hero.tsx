@@ -42,7 +42,7 @@ export function Hero() {
             {/* Wrappers keep GSAP off Button transition-all (avoids jitter) */}
             <div className="inline-flex">
               <QuoteCtaButton size="lg">
-                Get matched facilities
+                Talk to an advisor
                 <ArrowRight className="h-4 w-4" />
               </QuoteCtaButton>
             </div>

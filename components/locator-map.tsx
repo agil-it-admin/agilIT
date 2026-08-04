@@ -423,7 +423,7 @@ function FacilityDetailCard({
       </div>
 
       <QuoteCtaButton className="mt-5 w-full" size="default">
-        Request a quote for this facility
+        Talk to an advisor about this facility
       </QuoteCtaButton>
       </div>
     </article>

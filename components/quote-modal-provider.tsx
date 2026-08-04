@@ -8,7 +8,11 @@ import {
   type ReactNode,
 } from "react"
 
-import { IntakeFormContent } from "@/components/intake-form"
+import {
+  AdvisorLeadForm,
+  ContractReviewLeadForm,
+  ReportLeadForm,
+} from "@/components/lead-forms"
 import {
   Dialog,
   DialogBackdrop,
@@ -22,18 +26,51 @@ import {
   DialogViewport,
 } from "@/components/ui/dialog"
 
+export type QuoteIntent = "advisor" | "report" | "contract-review"
+
 type QuoteModalContextValue = {
-  openQuoteModal: () => void
+  openQuoteModal: (intent?: QuoteIntent) => void
   closeQuoteModal: () => void
 }
 
 const QuoteModalContext = createContext<QuoteModalContextValue | null>(null)
 
+const intentCopy: Record<
+  QuoteIntent,
+  { title: string; description: string }
+> = {
+  advisor: {
+    title: "Talk to an advisor",
+    description:
+      "Share a bit about your footprint and an advisor will follow up within one business day — free and vendor-neutral.",
+  },
+  report: {
+    title: "Request the report",
+    description:
+      "Get the 2026 Enterprise Colocation Pricing Benchmark Report delivered to your inbox.",
+  },
+  "contract-review": {
+    title: "Request a free contract review",
+    description:
+      "Share your MSA or renewal notice. We’ll flag uplift risk, escalator exposure, and where a market check could reset leverage.",
+  },
+}
+
 export function QuoteModalProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
+  const [intent, setIntent] = useState<QuoteIntent>("advisor")
   const [formKey, setFormKey] = useState(0)
 
-  const openQuoteModal = useCallback(() => setOpen(true), [])
+  const openQuoteModal = useCallback((nextIntent?: QuoteIntent) => {
+    // onClick={openQuoteModal} passes a MouseEvent — ignore non-intent args
+    const resolvedIntent =
+      typeof nextIntent === "string" && nextIntent in intentCopy
+        ? nextIntent
+        : "advisor"
+    setIntent(resolvedIntent)
+    setOpen(true)
+  }, [])
+
   const closeQuoteModal = useCallback(() => setOpen(false), [])
 
   function handleOpenChange(nextOpen: boolean) {
@@ -43,6 +80,8 @@ export function QuoteModalProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  const copy = intentCopy[intent] ?? intentCopy.advisor
+
   return (
     <QuoteModalContext.Provider value={{ openQuoteModal, closeQuoteModal }}>
       {children}
@@ -50,19 +89,26 @@ export function QuoteModalProvider({ children }: { children: ReactNode }) {
         <DialogPortal>
           <DialogBackdrop />
           <DialogViewport>
-            <DialogPopup>
+            <DialogPopup className="sm:max-w-lg">
               <DialogHeader>
                 <div>
-                  <DialogTitle>Request a quote</DialogTitle>
+                  <DialogTitle>{copy.title}</DialogTitle>
                   <DialogDescription className="mt-1">
-                    Answer four quick questions and an advisor returns matched
-                    facilities within one business day.
+                    {copy.description}
                   </DialogDescription>
                 </div>
                 <DialogClose />
               </DialogHeader>
               <DialogBody>
-                <IntakeFormContent key={formKey} />
+                {intent === "advisor" ? (
+                  <AdvisorLeadForm key={`advisor-${formKey}`} />
+                ) : null}
+                {intent === "report" ? (
+                  <ReportLeadForm key={`report-${formKey}`} />
+                ) : null}
+                {intent === "contract-review" ? (
+                  <ContractReviewLeadForm key={`review-${formKey}`} />
+                ) : null}
               </DialogBody>
             </DialogPopup>
           </DialogViewport>

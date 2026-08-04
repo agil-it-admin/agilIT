@@ -1,13 +1,19 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { useQuoteModal } from "@/components/quote-modal-provider"
+import {
+  useQuoteModal,
+  type QuoteIntent,
+} from "@/components/quote-modal-provider"
 import type { ComponentProps } from "react"
 
-type QuoteCtaButtonProps = ComponentProps<typeof Button>
+type QuoteCtaButtonProps = ComponentProps<typeof Button> & {
+  intent?: QuoteIntent
+}
 
 export function QuoteCtaButton({
   onClick,
+  intent = "advisor",
   ...props
 }: QuoteCtaButtonProps) {
   const { openQuoteModal } = useQuoteModal()
@@ -16,7 +22,7 @@ export function QuoteCtaButton({
     <Button
       {...props}
       onClick={(event) => {
-        openQuoteModal()
+        openQuoteModal(intent)
         onClick?.(event)
       }}
     />

@@ -11,7 +11,7 @@ import {
 import gsap from "gsap"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
-import { SiteLogo } from "@/components/site-logo"
+import { SiteBrand } from "@/components/site-logo"
 import { useQuoteModal } from "@/components/quote-modal-provider"
 import { cn } from "@/lib/utils"
 import {
@@ -23,11 +23,11 @@ import {
 } from "@/lib/motion"
 
 const nav = [
-  { label: "Locations", href: "#locations" },
   { label: "Services", href: "#services" },
-  { label: "Team", href: "#team" },
+  { label: "Locations", href: "#locations" },
   { label: "Why Us", href: "#testimonials" },
-  { label: "Blog", href: "#blog" },
+  { label: "Team", href: "#team" },
+  { label: "Resources", href: "#blog" },
   { label: "FAQ", href: "#faq" },
 ]
 
@@ -231,8 +231,8 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         <div
           ref={barRef}
           className={cn(
-            "pointer-events-auto relative w-full border border-transparent bg-transparent transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out",
-            scrolled ? "max-w-7xl" : "max-w-[1680px]",
+            "pointer-events-auto relative w-full border border-transparent bg-transparent transition-[max-width,background-color,border-color,box-shadow,backdrop-filter,border-radius] duration-500 ease-out",
+            scrolled ? "max-w-7xl rounded-[18px]" : "max-w-[1680px] rounded-none",
             scrolled &&
               (overlay
                 ? "border-border/60 bg-background/75 shadow-sm backdrop-blur-xl backdrop-saturate-150"
@@ -242,15 +242,19 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
               "bg-frosted-mint/20 backdrop-blur-[2px]",
           )}
         >
-          <div className="flex h-14 w-full items-center justify-between gap-3 pl-3 pr-2 sm:pl-4 sm:pr-2.5">
+          <div className="flex h-16 w-full items-center justify-between gap-3 pl-3 pr-2 sm:h-[4.25rem] sm:pl-4 sm:pr-2.5">
             <div className="flex min-w-0 items-center gap-1 sm:gap-2">
               <a
                 ref={logoRef}
                 href="#top"
-                className={cn(ENTRANCE_PREPARE_CLASS, "flex shrink-0 items-center")}
+                className={cn(
+                  ENTRANCE_PREPARE_CLASS,
+                  "relative z-20 flex shrink-0 items-center py-0.5",
+                )}
                 style={entranceStyle(14, 0)}
+                aria-label="Colonegotiator home — powered by agil.IT"
               >
-                <SiteLogo />
+                <SiteBrand />
               </a>
 
               <nav
@@ -300,7 +304,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 style={entranceStyle(16, 0)}
                 onClick={openQuoteModal}
               >
-                Get quotes
+                Talk to an advisor
               </Button>
             </div>
 
@@ -351,7 +355,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                       openQuoteModal()
                     }}
                   >
-                    Get quotes
+                    Talk to an advisor
                   </Button>
                 </nav>
               </div>

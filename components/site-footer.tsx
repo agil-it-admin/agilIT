@@ -11,7 +11,7 @@ const columns = [
   },
   {
     title: "Resources",
-    links: ["Blog", "Location finder", "Tier guide", "Compliance"],
+    links: ["Resource Center", "Location finder", "Tier guide", "Compliance"],
   },
 ]
 

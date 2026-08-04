@@ -1,5 +1,9 @@
+"use client"
+
 import { services } from "@/lib/data"
-import { QuoteCtaButton } from "@/components/quote-cta-button"
+import { useQuoteModal } from "@/components/quote-modal-provider"
+import DotField from "@/components/dot-field"
+import { cn } from "@/lib/utils"
 import {
   Server,
   Cloud,
@@ -7,7 +11,7 @@ import {
   Shield,
   Cpu,
   Globe,
-  Check,
+  ArrowRight,
   type LucideIcon,
 } from "lucide-react"
 
@@ -21,97 +25,212 @@ const iconMap: Record<string, LucideIcon> = {
 }
 
 export function ServicesGrid() {
+  const { openQuoteModal } = useQuoteModal()
+
   return (
-    <section id="services" className="border-t border-border py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="text-sm font-medium text-muted-foreground">
-            Compare services
-          </span>
-          <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Every deployment model, side by side
-          </h2>
-          <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
-            From dedicated cabinets to elastic cloud, see how each option maps
-            to your performance, scale, and budget requirements.
-          </p>
+    <section
+      id="services"
+      className="relative overflow-hidden bg-frosted-mint/25"
+    >
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <DotField
+          className="h-full w-full"
+          dotRadius={1.5}
+          dotSpacing={14}
+          bulgeStrength={67}
+          sparkle={false}
+          waveAmplitude={0}
+          gradientFrom="rgba(8, 28, 21, 0.28)"
+          gradientTo="rgba(45, 106, 79, 0.22)"
+        />
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-background/40 via-transparent to-background/70"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium text-sea-green">Compare services</p>
+            <h2 className="mt-4 text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+              Every deployment model, side by side
+            </h2>
+            <p className="mt-5 text-pretty text-lg leading-relaxed text-pine-teal/80">
+              From dedicated cabinets to elastic cloud, see how each option maps
+              to your performance, scale, and budget requirements.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={openQuoteModal}
+            className="group/cta inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-sea-green transition-colors hover:text-dark-emerald"
+          >
+            Talk through your mix
+            <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-0.5" />
+          </button>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => {
+        {/* Desktop comparison table */}
+        <div className="mt-14 hidden overflow-hidden rounded-[22px] bg-background/80 shadow-[0_28px_64px_-36px_rgba(8,28,21,0.35)] ring-1 ring-black/4 backdrop-blur-sm lg:block">
+          <div className="grid grid-cols-[1.15fr_repeat(4,1fr)] border-b border-border/70 bg-[#f7faf8]/80">
+            <div className="px-6 py-5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+              What we source
+            </div>
+            {services.map((service) => {
+              const Icon = iconMap[service.icon] ?? Server
+              return (
+                <div
+                  key={service.id}
+                  className="border-l border-border/70 px-5 py-5"
+                >
+                  <span className="inline-flex size-9 items-center justify-center rounded-full bg-frosted-mint text-dark-emerald">
+                    <Icon className="size-4" aria-hidden />
+                  </span>
+                  <h3 className="mt-3 text-lg font-semibold tracking-tight text-evergreen">
+                    {service.name}
+                  </h3>
+                  <p className="mt-1 text-sm leading-snug text-muted-foreground">
+                    {service.tagline}
+                  </p>
+                </div>
+              )
+            })}
+          </div>
+
+          <div className="grid grid-cols-[1.15fr_repeat(4,1fr)] border-b border-border/70">
+            <div className="px-6 py-5 text-sm font-medium text-pine-teal/80">
+              Best for
+            </div>
+            {services.map((service) => (
+              <div
+                key={`${service.id}-best`}
+                className="border-l border-border/70 px-5 py-5 text-sm font-medium text-evergreen"
+              >
+                {service.bestFor}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-[1.15fr_repeat(4,1fr)] border-b border-border/70 bg-[#f7faf8]/40">
+            <div className="px-6 py-5 text-sm font-medium text-pine-teal/80">
+              How we help
+            </div>
+            {services.map((service) => (
+              <div
+                key={`${service.id}-help`}
+                className="border-l border-border/70 px-5 py-5 text-sm leading-relaxed text-evergreen"
+              >
+                {service.weHelpWith}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-[1.15fr_repeat(4,1fr)] border-b border-border/70">
+            <div className="px-6 py-5 text-sm font-medium text-pine-teal/80">
+              Typical timeline
+            </div>
+            {services.map((service) => (
+              <div
+                key={`${service.id}-time`}
+                className="border-l border-border/70 px-5 py-5 text-sm font-medium text-evergreen"
+              >
+                {service.deployTime}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-[1.15fr_repeat(4,1fr)]">
+            <div className="px-6 py-5 text-sm font-medium text-pine-teal/80">
+              What we compare
+            </div>
+            {services.map((service) => (
+              <ul
+                key={`${service.id}-features`}
+                className="space-y-2.5 border-l border-border/70 px-5 py-5"
+              >
+                {service.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-start gap-2 text-sm leading-snug text-evergreen"
+                  >
+                    <span
+                      aria-hidden
+                      className="mt-2 size-1 shrink-0 rounded-full bg-sea-green"
+                    />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile / tablet stacked cards — still no pricing or form CTAs */}
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:hidden">
+          {services.map((service, i) => {
             const Icon = iconMap[service.icon] ?? Server
             return (
-              <div
+              <li
                 key={service.id}
-                className={`relative flex flex-col border bg-card p-6 ${
-                  service.popular
-                    ? "border-foreground"
-                    : "border-border"
-                }`}
-              >
-                {service.popular && (
-                  <span className="absolute -top-3 left-6 border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
-                    Most requested
-                  </span>
+                className={cn(
+                  "rounded-[20px] bg-background/80 p-6 shadow-[0_18px_40px_-28px_rgba(8,28,21,0.35)] ring-1 ring-black/4 backdrop-blur-sm",
+                  i % 2 === 1 && "sm:translate-y-4",
                 )}
-                <span className="flex h-11 w-11 items-center justify-center border border-border text-foreground">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
+              >
+                <span className="inline-flex size-10 items-center justify-center rounded-full bg-frosted-mint text-dark-emerald">
+                  <Icon className="size-4" aria-hidden />
                 </span>
-                <h3 className="mt-5 text-lg font-semibold text-foreground">
+                <h3 className="mt-4 text-lg font-semibold tracking-tight text-evergreen">
                   {service.name}
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {service.tagline}
                 </p>
 
-                <dl className="mt-5 space-y-3 border-t border-border pt-5 text-sm">
+                <dl className="mt-5 space-y-3 border-t border-border/70 pt-5 text-sm">
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-muted-foreground">
+                    <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
                       Best for
                     </dt>
-                    <dd className="mt-0.5 font-medium text-foreground">
+                    <dd className="mt-1 font-medium text-evergreen">
                       {service.bestFor}
                     </dd>
                   </div>
-                  <div className="flex justify-between gap-2">
-                    <dt className="text-muted-foreground">Deploy time</dt>
-                    <dd className="font-medium text-foreground">
-                      {service.deployTime}
-                    </dd>
+                  <div>
+                    <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                      How we help
+                    </dt>
+                    <dd className="mt-1 text-evergreen">{service.weHelpWith}</dd>
                   </div>
-                  <div className="flex justify-between gap-2">
-                    <dt className="text-muted-foreground">Starting at</dt>
-                    <dd className="font-semibold text-foreground">
-                      {service.startingAt}
+                  <div>
+                    <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                      Typical timeline
+                    </dt>
+                    <dd className="mt-1 font-medium text-evergreen">
+                      {service.deployTime}
                     </dd>
                   </div>
                 </dl>
 
-                <ul className="mt-5 space-y-2.5 border-t border-border pt-5">
+                <ul className="mt-5 space-y-2 border-t border-border/70 pt-5">
                   {service.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-start gap-2 text-sm text-foreground"
+                      className="flex items-start gap-2 text-sm text-evergreen"
                     >
-                      <Check
-                        className="mt-0.5 h-4 w-4 shrink-0 text-foreground"
-                        aria-hidden="true"
+                      <span
+                        aria-hidden
+                        className="mt-2 size-1 shrink-0 rounded-full bg-sea-green"
                       />
                       {feature}
                     </li>
                   ))}
                 </ul>
-
-                <QuoteCtaButton
-                  variant={service.popular ? "default" : "outline"}
-                  className="mt-6 w-full"
-                >
-                  Request a quote
-                </QuoteCtaButton>
-              </div>
+              </li>
             )
           })}
-        </div>
+        </ul>
       </div>
     </section>
   )

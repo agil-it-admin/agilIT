@@ -199,26 +199,25 @@ export type Service = {
   tagline: string;
   icon: "server" | "cloud" | "network" | "shield" | "cpu" | "globe";
   bestFor: string;
+  weHelpWith: string;
   deployTime: string;
-  startingAt: string;
   features: string[];
-  popular?: boolean;
 };
 
 export const services: Service[] = [
   {
     id: "colocation",
     name: "Colocation",
-    tagline: "Your hardware, our resilient facilities",
+    tagline: "Your hardware in resilient facilities",
     icon: "server",
     bestFor: "Predictable workloads & hardware control",
-    deployTime: "2–4 weeks",
-    startingAt: "$650 / rack",
+    weHelpWith: "Cage and cabinet sourcing across carrier-neutral sites",
+    deployTime: "2–4 weeks typical",
     features: [
-      "Quarter, half & full cabinets",
-      "2N redundant power & cooling",
-      "Remote hands 24/7/365",
-      "Cross-connects to 200+ carriers",
+      "Wholesale & retail footprint matching",
+      "Power density & redundancy screening",
+      "Remote hands & cross-connect options",
+      "Multi-metro shortlists in one brief",
     ],
   },
   {
@@ -227,14 +226,13 @@ export const services: Service[] = [
     tagline: "Burst to public cloud on demand",
     icon: "cloud",
     bestFor: "Variable, scaling workloads",
-    deployTime: "3–7 days",
-    startingAt: "$0.04 / vCPU-hr",
-    popular: true,
+    weHelpWith: "On-ramp design and private interconnect options",
+    deployTime: "Days to first interconnect",
     features: [
       "Direct connect to AWS, Azure & GCP",
-      "Private interconnect fabric",
-      "Elastic compute & object storage",
-      "Single-pane billing & governance",
+      "Hybrid placement recommendations",
+      "Interconnect fabric comparisons",
+      "Governance-friendly architectures",
     ],
   },
   {
@@ -243,12 +241,12 @@ export const services: Service[] = [
     tagline: "Dedicated servers, cloud agility",
     icon: "cpu",
     bestFor: "High-performance & GPU workloads",
-    deployTime: "24–72 hours",
-    startingAt: "$199 / mo",
+    weHelpWith: "Provider matching for CPU, GPU, and density needs",
+    deployTime: "Often live in 24–72 hours",
     features: [
-      "Latest-gen CPU & NVIDIA GPU nodes",
-      "Provision via API in minutes",
-      "100 Gbps network options",
+      "Latest-gen CPU & GPU node options",
+      "API-provisioned dedicated hosts",
+      "High-throughput network profiles",
       "No noisy-neighbor contention",
     ],
   },
@@ -258,13 +256,13 @@ export const services: Service[] = [
     tagline: "Low-latency global network reach",
     icon: "network",
     bestFor: "Multi-site & edge architectures",
-    deployTime: "1–3 weeks",
-    startingAt: "Custom",
+    weHelpWith: "Transport, transit, and path-diversity sourcing",
+    deployTime: "1–3 weeks typical",
     features: [
       "Dedicated & wavelength transport",
       "Blended & burstable IP transit",
-      "DDoS mitigation included",
-      "SLA-backed 99.999% uptime",
+      "Diverse path & entrance checks",
+      "SLA-backed uptime requirements",
     ],
   },
 ];
@@ -372,7 +370,7 @@ export const team: TeamMember[] = [
     id: "brad-mclaughlin",
     name: "Brad McLaughlin",
     role: "Managing Partner",
-    image: "/placeholder-images/people/1750707470069.webp",
+    image: "/placeholder-images/people/brad-mclaughlin.jpg",
   },
   {
     id: "patrick-ellis",

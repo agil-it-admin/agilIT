@@ -42,11 +42,11 @@ export default async function BlogPostPage({ params }: PageProps) {
         <article className="border-b border-border">
           <div className="mx-auto max-w-3xl px-4 pt-10 sm:px-6 lg:px-8 lg:pt-14">
             <Link
-              href="/#blog"
+              href="/blog"
               className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back to articles
+              Back to Resource Center
             </Link>
 
             <div className="mt-6 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
