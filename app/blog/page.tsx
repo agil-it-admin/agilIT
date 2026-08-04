@@ -5,7 +5,7 @@ import { BlogSection } from "@/components/blog-section"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Resource Center — agil.IT",
+  title: "Resource Center — Colonegotiator",
   description:
     "Guides, pricing benchmarks, quick tips, and expert insight for teams sourcing colocation, cloud, and connectivity.",
 }

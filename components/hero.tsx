@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { QuoteCtaButton } from "@/components/quote-cta-button"
 import {
   EntranceReveal,
@@ -39,23 +38,12 @@ export function Hero() {
             y={16}
             duration={0.55}
           >
-            {/* Wrappers keep GSAP off Button transition-all (avoids jitter) */}
+            {/* Wrapper keeps GSAP off Button transition-all (avoids jitter) */}
             <div className="inline-flex">
               <QuoteCtaButton size="lg">
                 Talk to an advisor
                 <ArrowRight className="h-4 w-4" />
               </QuoteCtaButton>
-            </div>
-            <div className="inline-flex">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-border/80 bg-background/70 backdrop-blur-sm"
-                nativeButton={false}
-                render={<a href="#locations" />}
-              >
-                Explore the map
-              </Button>
             </div>
           </EntranceStagger>
         </div>

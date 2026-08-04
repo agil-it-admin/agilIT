@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'agil.IT — Find & Compare Data Center, Colocation & Cloud',
+  title: 'Colonegotiator — Find & Compare Data Center, Colocation & Cloud',
   description:
-    'agil.IT matches your workload with the right data center, colocation, bare metal, and connectivity providers across 200+ metros. Free, advisor-led sourcing.',
+    'Colonegotiator matches your workload with the right data center, colocation, bare metal, and connectivity providers across 200+ metros. Free, advisor-led sourcing.',
   generator: 'v0.app',
   icons: {
     icon: [

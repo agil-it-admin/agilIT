@@ -48,7 +48,6 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   const logoRef = useRef<HTMLAnchorElement>(null)
   const navRef = useRef<HTMLElement>(null)
   const highlightRef = useRef<HTMLDivElement>(null)
-  const browseMapRef = useRef<HTMLAnchorElement>(null)
   const getQuotesRef = useRef<HTMLButtonElement>(null)
   const menuBtnRef = useRef<HTMLButtonElement>(null)
 
@@ -96,9 +95,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
     const navLinks = navRef.current
       ? Array.from(navRef.current.querySelectorAll("[data-nav-link]"))
       : []
-    const ctaEls = [browseMapRef.current, getQuotesRef.current].filter(
-      Boolean,
-    ) as Element[]
+    const ctaEls = [getQuotesRef.current].filter(Boolean) as Element[]
     const animatedEls = [
       header,
       logoRef.current,
@@ -205,23 +202,19 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         })
       }
 
-      if (browseMapRef.current && getQuotesRef.current) {
-        const ctaStart = 0.38
-        const ctaDuration = 0.55
+      if (getQuotesRef.current) {
         tl.to(
-          [browseMapRef.current, getQuotesRef.current],
+          getQuotesRef.current,
           {
             autoAlpha: 1,
             y: 0,
-            duration: ctaDuration,
+            duration: 0.55,
             ease: ENTRANCE_EASE_OUT,
             onComplete: () => {
-              if (cancelled) return
-              clearEntranceProps(browseMapRef.current!)
-              clearEntranceProps(getQuotesRef.current!)
+              if (!cancelled) clearEntranceProps(getQuotesRef.current!)
             },
           },
-          ctaStart,
+          0.38,
         )
       }
       if (menuBtnRef.current) {
@@ -252,19 +245,19 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         ref={headerRef}
         className={cn(
           !entered && ENTRANCE_PREPARE_CLASS,
-          "pointer-events-none fixed inset-x-0 z-50 flex flex-col items-center transition-[padding,top] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          scrolled
-            ? "top-3 px-4 sm:top-4 sm:px-6 lg:px-8"
-            : "top-0 px-0",
+          "pointer-events-none fixed inset-x-0 z-50 flex justify-center transition-[top] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          scrolled ? "top-3 sm:top-4" : "top-0",
         )}
         style={entered ? undefined : entranceStyle(-20, 0)}
       >
         <div
           ref={barRef}
           className={cn(
-            // Use max-w-full (not max-w-none) so width can interpolate to max-w-7xl
-            "pointer-events-auto relative w-full border border-transparent bg-transparent transition-[max-width,background-color,border-color,box-shadow,backdrop-filter,border-radius] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            scrolled ? "max-w-7xl rounded-[18px]" : "max-w-full rounded-none",
+            // Animate width (not max-w-none) so the side inset eases instead of snapping
+            "pointer-events-auto relative border border-transparent bg-transparent transition-[width,max-width,background-color,border-color,box-shadow,backdrop-filter,border-radius] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            scrolled
+              ? "w-[calc(100%-2rem)] max-w-7xl rounded-[18px] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)]"
+              : "w-full max-w-full rounded-none",
             scrolled &&
               (overlay
                 ? "border-border/60 bg-background/75 shadow-sm backdrop-blur-xl backdrop-saturate-150"
@@ -308,7 +301,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                     onMouseEnter={handleLinkHover}
                     className={cn(
                       !entered && ENTRANCE_PREPARE_CLASS,
-                      "relative z-10 px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                      "relative z-10 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
                     )}
                     style={entered ? undefined : entranceStyle(16, 0)}
                   >
@@ -319,17 +312,6 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             </div>
 
             <div className="hidden items-center gap-3 md:flex">
-              <a
-                ref={browseMapRef}
-                href="#locations"
-                className={cn(
-                  !entered && ENTRANCE_PREPARE_CLASS,
-                  "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-                )}
-                style={entered ? undefined : entranceStyle(16, 0)}
-              >
-                Browse map
-              </a>
               <Button
                 ref={getQuotesRef}
                 className={!entered ? ENTRANCE_PREPARE_CLASS : undefined}
@@ -373,13 +355,6 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                       {item.label}
                     </a>
                   ))}
-                  <a
-                    href="#locations"
-                    onClick={() => setOpen(false)}
-                    className="px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-                  >
-                    Browse map
-                  </a>
                   <Button
                     className="mt-1 w-full"
                     onClick={() => {

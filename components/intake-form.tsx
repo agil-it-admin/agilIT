@@ -63,16 +63,19 @@ const steps = ["Service", "Footprint", "Timeline", "Contact"]
 
 export function IntakeForm() {
   return (
-    <section id="intake" className="border-t border-border bg-muted/30 py-20 lg:py-28">
+    <section
+      id="intake"
+      className="scroll-mt-24 border-y border-border bg-evergreen py-20 text-frosted-mint lg:py-28"
+    >
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-24">
-          <span className="text-sm font-medium text-muted-foreground">
+          <span className="text-sm font-medium text-mint-leaf">
             Get matched
           </span>
-          <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="mt-2 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             Tell us what you need. We&apos;ll do the sourcing.
           </h2>
-          <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-pretty text-lg leading-relaxed text-celadon/90">
             Answer four quick questions and a dedicated advisor returns two to
             four matched facilities within one business day. Always free, always
             vendor-neutral.
@@ -83,8 +86,8 @@ export function IntakeForm() {
               "Compliance-aware matching",
               "Negotiated pricing across our network",
             ].map((item) => (
-              <li key={item} className="flex items-center gap-3 text-muted-foreground">
-                <span className="flex h-6 w-6 items-center justify-center border border-border text-foreground">
+              <li key={item} className="flex items-center gap-3 text-celadon/90">
+                <span className="flex h-6 w-6 items-center justify-center border border-white/15 text-mint-leaf">
                   <Check className="h-3.5 w-3.5" />
                 </span>
                 {item}
@@ -93,7 +96,7 @@ export function IntakeForm() {
           </ul>
         </div>
 
-        <IntakeFormContent className="border border-border bg-background p-6 text-foreground sm:p-8" />
+        <IntakeFormContent className="rounded-[22px] bg-white p-6 text-foreground shadow-[0_28px_64px_-36px_rgba(8,28,21,0.45)] ring-1 ring-black/5 sm:p-8" />
       </div>
     </section>
   )
@@ -126,202 +129,200 @@ export function IntakeFormContent({ className }: { className?: string }) {
 
   return (
     <div className={className}>
-          {status === "done" ? (
-            <div className="flex flex-col items-center py-10 text-center">
-              <span className="flex h-14 w-14 items-center justify-center border border-border text-foreground">
-                <CheckCircle2 className="h-8 w-8" />
-              </span>
-              <h3 className="mt-5 text-xl font-semibold text-foreground">
-                Request received
-              </h3>
-              <p className="mt-2 max-w-sm text-muted-foreground">
-                Thanks, {data.name.split(" ")[0] || "there"}. An advisor will
-                email {data.email || "you"} within one business day with matched
-                facilities for your {data.service.toLowerCase() || "deployment"}.
-              </p>
-              <Button
-                variant="outline"
-                className="mt-6"
-                onClick={() => {
-                  setData(initial)
-                  setStep(0)
-                  setStatus("idle")
-                }}
-              >
-                Submit another request
-              </Button>
-            </div>
-          ) : (
-            <>
-              {/* Progress */}
-              <div className="flex items-center justify-between">
-                {steps.map((label, i) => (
-                  <div key={label} className="flex items-center gap-2">
-                    <span
-                      className={`flex h-7 w-7 items-center justify-center text-xs font-semibold ${
-                        i < step
-                          ? "bg-primary text-primary-foreground"
-                          : i === step
-                            ? "bg-primary text-primary-foreground ring-4 ring-primary/15"
-                            : "bg-secondary text-muted-foreground"
-                      }`}
-                    >
-                      {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
-                    </span>
-                    <span
-                      className={`hidden text-sm font-medium sm:block ${
-                        i <= step ? "text-foreground" : "text-muted-foreground"
-                      }`}
-                    >
-                      {label}
-                    </span>
-                    {i < steps.length - 1 && (
-                      <span className="mx-1 hidden h-px w-6 bg-border sm:block lg:w-8" />
-                    )}
-                  </div>
-                ))}
+      {status === "done" ? (
+        <div className="flex flex-col items-center py-10 text-center">
+          <span className="flex h-14 w-14 items-center justify-center rounded-[16px] bg-evergreen/5 text-evergreen ring-1 ring-evergreen/10">
+            <CheckCircle2 className="h-8 w-8" />
+          </span>
+          <h3 className="mt-5 text-xl font-semibold text-foreground">
+            Request received
+          </h3>
+          <p className="mt-2 max-w-sm text-muted-foreground">
+            Thanks, {data.name.split(" ")[0] || "there"}. An advisor will email{" "}
+            {data.email || "you"} within one business day with matched facilities
+            for your {data.service.toLowerCase() || "deployment"}.
+          </p>
+          <Button
+            variant="outline"
+            className="mt-6"
+            onClick={() => {
+              setData(initial)
+              setStep(0)
+              setStatus("idle")
+            }}
+          >
+            Submit another request
+          </Button>
+        </div>
+      ) : (
+        <>
+          {/* Progress */}
+          <div className="flex items-center justify-between">
+            {steps.map((label, i) => (
+              <div key={label} className="flex items-center gap-2">
+                <span
+                  className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold ${
+                    i < step
+                      ? "bg-evergreen text-frosted-mint"
+                      : i === step
+                        ? "bg-evergreen text-frosted-mint ring-4 ring-evergreen/15"
+                        : "bg-muted text-muted-foreground"
+                  }`}
+                >
+                  {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
+                </span>
+                <span
+                  className={`hidden text-sm font-medium sm:block ${
+                    i <= step ? "text-foreground" : "text-muted-foreground"
+                  }`}
+                >
+                  {label}
+                </span>
+                {i < steps.length - 1 && (
+                  <span className="mx-1 hidden h-px w-6 bg-border sm:block lg:w-8" />
+                )}
               </div>
+            ))}
+          </div>
 
-              <form onSubmit={handleSubmit} className="mt-8">
-                {step === 0 && (
-                  <Fieldset
-                    legend="Which service are you sourcing?"
-                    help="Pick the model that best fits your workload."
-                  >
-                    <OptionGrid
-                      options={serviceOptions}
-                      value={data.service}
-                      onChange={(v) => update({ service: v })}
-                    />
-                  </Fieldset>
-                )}
+          <form onSubmit={handleSubmit} className="mt-8">
+            {step === 0 && (
+              <Fieldset
+                legend="Which service are you sourcing?"
+                help="Pick the model that best fits your workload."
+              >
+                <OptionGrid
+                  options={serviceOptions}
+                  value={data.service}
+                  onChange={(v) => update({ service: v })}
+                />
+              </Fieldset>
+            )}
 
-                {step === 1 && (
-                  <div className="space-y-8">
-                    <Fieldset legend="Preferred region">
-                      <OptionGrid
-                        options={regionOptions}
-                        value={data.region}
-                        onChange={(v) => update({ region: v })}
-                      />
-                    </Fieldset>
-                    <Fieldset legend="Approximate footprint">
-                      <OptionGrid
-                        options={powerOptions}
-                        value={data.power}
-                        onChange={(v) => update({ power: v })}
-                      />
-                    </Fieldset>
-                  </div>
-                )}
+            {step === 1 && (
+              <div className="space-y-8">
+                <Fieldset legend="Preferred region">
+                  <OptionGrid
+                    options={regionOptions}
+                    value={data.region}
+                    onChange={(v) => update({ region: v })}
+                  />
+                </Fieldset>
+                <Fieldset legend="Approximate footprint">
+                  <OptionGrid
+                    options={powerOptions}
+                    value={data.power}
+                    onChange={(v) => update({ power: v })}
+                  />
+                </Fieldset>
+              </div>
+            )}
 
-                {step === 2 && (
-                  <Fieldset
-                    legend="When do you need to deploy?"
-                    help="This helps us prioritize available capacity."
-                  >
-                    <OptionGrid
-                      options={timelineOptions}
-                      value={data.timeline}
-                      onChange={(v) => update({ timeline: v })}
-                    />
-                  </Fieldset>
-                )}
+            {step === 2 && (
+              <Fieldset
+                legend="When do you need to deploy?"
+                help="This helps us prioritize available capacity."
+              >
+                <OptionGrid
+                  options={timelineOptions}
+                  value={data.timeline}
+                  onChange={(v) => update({ timeline: v })}
+                />
+              </Fieldset>
+            )}
 
-                {step === 3 && (
-                  <div className="space-y-5">
-                    <h3 className="text-base font-semibold text-foreground">
-                      Where should we send your matches?
-                    </h3>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <Field
-                        label="Full name"
-                        value={data.name}
-                        onChange={(v) => update({ name: v })}
-                        placeholder="Jordan Reyes"
-                      />
-                      <Field
-                        label="Work email"
-                        type="email"
-                        value={data.email}
-                        onChange={(v) => update({ email: v })}
-                        placeholder="jordan@company.com"
-                      />
-                    </div>
-                    <Field
-                      label="Company"
-                      value={data.company}
-                      onChange={(v) => update({ company: v })}
-                      placeholder="Acme Corp"
-                    />
-                    <div>
-                      <label
-                        htmlFor="details"
-                        className="block text-sm font-medium text-foreground"
-                      >
-                        Anything else?{" "}
-                        <span className="text-muted-foreground">
-                          (optional)
-                        </span>
-                      </label>
-                      <textarea
-                        id="details"
-                        rows={3}
-                        value={data.details}
-                        onChange={(e) => update({ details: e.target.value })}
-                        placeholder="Compliance needs, interconnects, redundancy requirements…"
-                        className="mt-1.5 w-full border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* Controls */}
-                <div className="mt-8 flex items-center justify-between gap-3">
-                  {step > 0 ? (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => setStep((s) => s - 1)}
-                    >
-                      <ArrowLeft className="h-4 w-4" />
-                      Back
-                    </Button>
-                  ) : (
-                    <span />
-                  )}
-
-                  {step < steps.length - 1 ? (
-                    <Button
-                      type="button"
-                      disabled={!canContinue}
-                      onClick={() => setStep((s) => s + 1)}
-                    >
-                      Continue
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  ) : (
-                    <Button
-                      type="submit"
-                      disabled={!contactValid || status === "submitting"}
-                    >
-                      {status === "submitting" ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                          Submitting…
-                        </>
-                      ) : (
-                        <>
-                          Get my matches
-                          <ArrowRight className="h-4 w-4" />
-                        </>
-                      )}
-                    </Button>
-                  )}
+            {step === 3 && (
+              <div className="space-y-5">
+                <h3 className="text-base font-semibold text-foreground">
+                  Where should we send your matches?
+                </h3>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Field
+                    label="Full name"
+                    value={data.name}
+                    onChange={(v) => update({ name: v })}
+                    placeholder="Jordan Reyes"
+                  />
+                  <Field
+                    label="Work email"
+                    type="email"
+                    value={data.email}
+                    onChange={(v) => update({ email: v })}
+                    placeholder="jordan@company.com"
+                  />
                 </div>
-              </form>
-            </>
-          )}
+                <Field
+                  label="Company"
+                  value={data.company}
+                  onChange={(v) => update({ company: v })}
+                  placeholder="Acme Corp"
+                />
+                <div>
+                  <label
+                    htmlFor="details"
+                    className="block text-sm font-medium text-foreground"
+                  >
+                    Anything else?{" "}
+                    <span className="text-muted-foreground">(optional)</span>
+                  </label>
+                  <textarea
+                    id="details"
+                    rows={3}
+                    value={data.details}
+                    onChange={(e) => update({ details: e.target.value })}
+                    placeholder="Compliance needs, interconnects, redundancy requirements…"
+                    className="mt-1.5 w-full rounded-[12px] border border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Controls */}
+            <div className="mt-8 flex items-center justify-between gap-3">
+              {step > 0 ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setStep((s) => s - 1)}
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Back
+                </Button>
+              ) : (
+                <span />
+              )}
+
+              {step < steps.length - 1 ? (
+                <Button
+                  type="button"
+                  disabled={!canContinue}
+                  onClick={() => setStep((s) => s + 1)}
+                >
+                  Continue
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={!contactValid || status === "submitting"}
+                >
+                  {status === "submitting" ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Submitting…
+                    </>
+                  ) : (
+                    <>
+                      Get my matches
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
+          </form>
+        </>
+      )}
     </div>
   )
 }
@@ -364,18 +365,18 @@ function OptionGrid({
             key={opt}
             type="button"
             onClick={() => onChange(opt)}
-            className={`flex items-center justify-between border px-4 py-3 text-left text-sm font-medium transition-colors ${
+            className={`flex items-center justify-between rounded-[14px] border px-4 py-3 text-left text-sm font-medium transition-colors ${
               selected
-                ? "border-foreground bg-muted text-foreground ring-1 ring-foreground/10"
-                : "border-input bg-background text-foreground hover:border-foreground/30"
+                ? "border-evergreen/25 bg-evergreen/[0.04] text-foreground ring-1 ring-evergreen/10"
+                : "border-border bg-white text-foreground hover:border-evergreen/20 hover:bg-muted/40"
             }`}
           >
             {opt}
             <span
-              className={`flex h-4 w-4 items-center justify-center border ${
+              className={`flex h-4 w-4 items-center justify-center rounded-full border ${
                 selected
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-muted-foreground/40"
+                  ? "border-evergreen bg-evergreen text-frosted-mint"
+                  : "border-muted-foreground/35"
               }`}
             >
               {selected && <Check className="h-3 w-3" />}
@@ -413,7 +414,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="mt-1.5 w-full border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
+        className="mt-1.5 w-full rounded-[12px] border border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/25"
       />
     </div>
   )

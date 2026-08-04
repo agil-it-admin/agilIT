@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!post) return { title: "Article not found" };
 
   return {
-    title: `${post.title} — agil.IT`,
+    title: `${post.title} — Colonegotiator`,
     description: post.excerpt,
   };
 }
