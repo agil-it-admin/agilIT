@@ -371,13 +371,13 @@ export const team: TeamMember[] = [
   {
     id: "brad-mclaughlin",
     name: "Brad McLaughlin",
-    role: "",
+    role: "Managing Partner",
     image: "/placeholder-images/people/1750707470069.webp",
   },
   {
     id: "patrick-ellis",
     name: "Patrick Ellis",
-    role: "",
+    role: "Principal Advisor",
     image: "/placeholder-images/people/1582124128804.webp",
   },
 ];

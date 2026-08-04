@@ -1,83 +1,133 @@
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { DatacenterIllustration } from "@/components/datacenter-illustration"
 import { blogPosts } from "@/lib/blog"
-import { ArrowUpRight } from "lucide-react"
+import { cn } from "@/lib/utils"
+
+function Cover({
+  post,
+  className,
+}: {
+  post: (typeof blogPosts)[number]
+  className?: string
+}) {
+  return (
+    <div className={cn("relative overflow-hidden bg-muted", className)}>
+      <DatacenterIllustration
+        variant={post.imageVariant}
+        className="h-full w-full transition duration-700 ease-out group-hover:scale-[1.03]"
+        title={post.imageAlt}
+      />
+    </div>
+  )
+}
+
+function Meta({
+  post,
+  className,
+}: {
+  post: (typeof blogPosts)[number]
+  className?: string
+}) {
+  return (
+    <div
+      className={cn(
+        "flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-muted-foreground",
+        className,
+      )}
+    >
+      <span className="text-sea-green">{post.category}</span>
+      <span aria-hidden className="text-border">
+        ·
+      </span>
+      <span>{post.readTime}</span>
+    </div>
+  )
+}
 
 export function BlogSection() {
+  const [lead, ...rest] = blogPosts
+
   return (
-    <section id="blog" className="border-t border-border py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <section id="blog" className="relative overflow-hidden bg-background">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_10%,rgba(183,228,199,0.32),transparent_55%),radial-gradient(ellipse_45%_35%_at_10%_90%,rgba(216,243,220,0.4),transparent_50%)]"
+      />
+      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <span className="text-sm font-medium text-muted-foreground">
-              Blog
-            </span>
-            <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            <p className="text-sm font-medium text-sea-green">Blog</p>
+            <h2 className="mt-4 text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
               Guides from the data center floor
             </h2>
-            <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-pine-teal/80">
               Strategy, fundamentals, and infrastructure trends for teams
               sourcing colocation, cloud, and connectivity.
             </p>
           </div>
           <Link
-            href="/blog/colocation-vs-hybrid-cloud"
-            className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:underline"
+            href={`/blog/${lead.slug}`}
+            className="group/cta inline-flex items-center gap-2 text-sm font-semibold text-sea-green transition-colors hover:text-dark-emerald"
           >
             Browse articles
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-0.5" />
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {blogPosts.map((post) => (
-            <article
-              key={post.slug}
-              className="group flex flex-col overflow-hidden border border-border bg-card"
-            >
-              <Link
-                href={`/blog/${post.slug}`}
-                className="relative block aspect-[16/10] overflow-hidden border-b border-border bg-muted transition-transform duration-300 group-hover:scale-[1.01]"
+        <div className="mt-14 grid gap-8 lg:grid-cols-12 lg:gap-10">
+          <article className="group lg:col-span-7">
+            <Link href={`/blog/${lead.slug}`} className="block">
+              <Cover
+                post={lead}
+                className="aspect-16/10 rounded-[20px] shadow-[0_28px_64px_-32px_rgba(8,28,21,0.45)] ring-1 ring-black/4"
+              />
+            </Link>
+            <div className="mt-6 max-w-xl">
+              <Meta post={lead} />
+              <h3 className="mt-3 text-pretty text-2xl font-semibold tracking-tight text-evergreen sm:text-3xl">
+                <Link
+                  href={`/blog/${lead.slug}`}
+                  className="transition-colors hover:text-sea-green"
+                >
+                  {lead.title}
+                </Link>
+              </h3>
+              <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
+                {lead.excerpt}
+              </p>
+            </div>
+          </article>
+
+          <div className="flex flex-col gap-6 lg:col-span-5 lg:gap-0 lg:divide-y lg:divide-border/80">
+            {rest.map((post) => (
+              <article
+                key={post.slug}
+                className="group grid grid-cols-[112px_1fr] gap-4 sm:grid-cols-[140px_1fr] sm:gap-5 lg:py-6 first:lg:pt-0 last:lg:pb-0"
               >
-                <DatacenterIllustration
-                  variant={post.imageVariant}
-                  className="h-full w-full"
-                  title={post.imageAlt}
-                />
-              </Link>
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                  <span className="border border-border px-2.5 py-0.5 text-foreground">
-                    {post.category}
-                  </span>
-                  <span>{post.readTime}</span>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="block overflow-hidden rounded-[14px] ring-1 ring-black/4"
+                >
+                  <Cover post={post} className="aspect-square" />
+                </Link>
+                <div className="flex min-w-0 flex-col justify-center">
+                  <Meta post={post} />
+                  <h3 className="mt-2 text-pretty text-base font-semibold tracking-tight text-evergreen sm:text-lg">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="transition-colors hover:text-sea-green"
+                    >
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                    {post.excerpt}
+                  </p>
                 </div>
-                <h3 className="mt-4 text-balance text-lg font-semibold leading-snug text-foreground">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="hover:underline"
-                  >
-                    {post.title}
-                  </Link>
-                </h3>
-                <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-muted-foreground">
-                  {post.excerpt}
-                </p>
-                <div className="mt-5 flex items-center justify-between gap-4">
-                  <span className="text-xs font-medium text-muted-foreground">
-                    {post.date}
-                  </span>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-medium text-foreground hover:underline"
-                  >
-                    Read article
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -2,68 +2,68 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { SiteLogo } from "@/components/site-logo"
 import {
+  VariantBentoMosaic,
   VariantCurrentBaseline,
-  VariantDarkGallery,
-  VariantMeshAtmosphere,
-  VariantNameLedger,
-  VariantOverlapCollage,
-  VariantQuietColumns,
+  VariantDarkStage,
+  VariantHorizonRail,
+  VariantNumberedLedger,
+  VariantQuietMagazine,
   VariantSoftField,
   VariantStripeEditorial,
-} from "@/components/team-style-variants"
+} from "@/components/blog-style-variants"
 
 const variants = [
   {
     id: "editorial",
     title: "Stripe editorial",
-    note: "Copy left, staggered tall portraits right — soft radial wash, no card chrome.",
+    note: "Featured lead story + stacked companions — classic Stripe blog index.",
     Component: VariantStripeEditorial,
   },
   {
     id: "soft-field",
-    title: "Soft field duo",
-    note: "Centered manifesto with slightly tilted floating portraits and depth.",
+    title: "Soft field cards",
+    note: "Centered manifesto, floating rounded cards with a light stagger.",
     Component: VariantSoftField,
   },
   {
-    id: "overlap",
-    title: "Overlap collage",
-    note: "Photographic composition — lead portrait overlapping a support image.",
-    Component: VariantOverlapCollage,
-  },
-  {
     id: "quiet",
-    title: "Quiet columns",
-    note: "Maximum air, equal tall portraits, mint wash — calm Stripe marketing.",
-    Component: VariantQuietColumns,
-  },
-  {
-    id: "mesh",
-    title: "Mesh atmosphere",
-    note: "Living gradient field with glass-edged portraits and caption fade.",
-    Component: VariantMeshAtmosphere,
+    title: "Quiet magazine",
+    note: "Hairline rows, portrait thumbs, typographic Stripe About energy.",
+    Component: VariantQuietMagazine,
   },
   {
     id: "dark",
-    title: "Dark gallery",
-    note: "Evergreen stage, luminous portraits — Stripe’s developer-section energy.",
-    Component: VariantDarkGallery,
+    title: "Dark stage",
+    note: "Evergreen gallery strip — developer-section drama.",
+    Component: VariantDarkStage,
+  },
+  {
+    id: "bento",
+    title: "Bento mosaic",
+    note: "Asymmetric featured + support tiles — Stripe homepage bento feel.",
+    Component: VariantBentoMosaic,
+  },
+  {
+    id: "rail",
+    title: "Horizon rail",
+    note: "Tall portrait cards, staggered heights, Sessions-style strip.",
+    Component: VariantHorizonRail,
   },
   {
     id: "ledger",
-    title: "Name ledger",
-    note: "Oversized names with portrait thumbs — typographic Stripe About feel.",
-    Component: VariantNameLedger,
+    title: "Numbered ledger",
+    note: "Mono index numbers, oversized titles, almost no card chrome.",
+    Component: VariantNumberedLedger,
   },
   {
     id: "current",
     title: "Current baseline",
-    note: "What’s on the homepage today — centered header, two square cards.",
+    note: "What’s on the homepage today — three equal bordered cards.",
     Component: VariantCurrentBaseline,
   },
 ]
 
-export default function TeamStylesPage() {
+export default function BlogStylesPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-md">
@@ -79,7 +79,7 @@ export default function TeamStylesPage() {
             <SiteLogo />
           </div>
           <p className="hidden text-sm text-muted-foreground md:block">
-            Team section · Stripe-polished options
+            Blog section · Stripe-polished options
           </p>
         </div>
       </header>
@@ -88,13 +88,13 @@ export default function TeamStylesPage() {
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
           <p className="text-sm font-medium text-sea-green">Sandbox</p>
           <h1 className="mt-3 max-w-2xl text-pretty text-4xl font-semibold tracking-tight text-evergreen sm:text-5xl">
-            Advisors who know the market — style options
+            Guides from the data center floor — style options
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            Seven polished treatments of the two-advisor section, plus the
-            current baseline. Stripe cues: generous type, soft atmosphere,
-            staggered photography, and almost no card chrome. Pick an id and
-            we&apos;ll port it live.
+            Seven polished treatments of the homepage blog section, plus the
+            current baseline. Stripe cues: featured storytelling, soft
+            atmosphere, and restrained chrome. Pick an id and we&apos;ll port
+            it live.
           </p>
           <nav aria-label="Variants" className="mt-10 flex flex-wrap gap-2">
             {variants.map((v) => (
@@ -137,14 +137,14 @@ export default function TeamStylesPage() {
             Prefer one of these?
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Tell me the variant id (editorial, soft-field, overlap, quiet,
-            mesh, dark, ledger) and I&apos;ll swap it onto the homepage.
+            Tell me the variant id (editorial, soft-field, quiet, dark, bento,
+            rail, ledger) and I&apos;ll swap it onto the homepage.
           </p>
           <Link
-            href="/#team"
+            href="/#blog"
             className="mt-8 inline-flex rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/25"
           >
-            Jump to current homepage team
+            Jump to current homepage blog
           </Link>
         </div>
       </section>
