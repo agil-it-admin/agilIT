@@ -1,14 +1,25 @@
 /**
  * Payload CMS client for the Colonegotiator marketing site.
- * Points at the local backend (:4001) by default.
+ *
+ * Resolution order:
+ * 1. PAYLOAD_API_URL — Vercel service binding (server-side, preferred in prod)
+ * 2. NEXT_PUBLIC_PAYLOAD_API_URL — explicit public/base URL (local or override)
+ * 3. Same-origin empty → http://localhost:4001 for local `pnpm dev`
  */
 
 export function getPayloadApiUrl(): string {
-  const url =
-    process.env.NEXT_PUBLIC_PAYLOAD_API_URL?.trim() ||
-    process.env.PAYLOAD_API_URL?.trim() ||
-    "http://localhost:4001"
-  return url.replace(/\/+$/, "")
+  const fromBinding = process.env.PAYLOAD_API_URL?.trim()
+  if (fromBinding) return fromBinding.replace(/\/+$/, "")
+
+  const fromPublic = process.env.NEXT_PUBLIC_PAYLOAD_API_URL?.trim()
+  if (fromPublic) return fromPublic.replace(/\/+$/, "")
+
+  // On Vercel the public site and CMS share one domain; /api is rewritten to backend.
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`.replace(/\/+$/, "")
+  }
+
+  return "http://localhost:4001"
 }
 
 export type FetchPayloadOptions = RequestInit & {

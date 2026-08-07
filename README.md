@@ -54,3 +54,38 @@ Production surfaces that use CMS blog data:
 - `/` Resource Center section
 - `/blog`
 - `/blog/[slug]`
+
+## Deploy on Vercel (Services)
+
+This repo is set up as a single Vercel project with two [Services](https://vercel.com/docs/services) via root [`vercel.json`](vercel.json):
+
+| Service | Root | Public routes |
+| --- | --- | --- |
+| `frontend` | `frontend/` | `/` (marketing site) |
+| `backend` | `backend/` | `/admin`, `/api/*` (Payload) |
+
+Routing uses `/admin` and `/api/*` (not `/api/backend`) so Payload’s built-in paths work as-is. The frontend binds to the backend via `PAYLOAD_API_URL` for server-side CMS fetches.
+
+### Import steps
+
+1. In Vercel → **Add New Project** → import `agil-it-admin/agilIT`.
+2. Set **Framework** to **Services** (Build & Deployment settings). Root Directory stays empty (repo root).
+3. Add environment variables (Production + Preview):
+
+| Name | Service / scope | Value |
+| --- | --- | --- |
+| `PAYLOAD_SECRET` | backend (or shared) | long random secret |
+| `FRONTEND_URL` | backend | `https://YOUR_DOMAIN` |
+| `PAYLOAD_PUBLIC_SERVER_URL` | backend | `https://YOUR_DOMAIN` |
+| `DATABASE_URL` | backend | persistent DB URL (see note below) |
+
+Leave `NEXT_PUBLIC_PAYLOAD_API_URL` unset on Vercel (local only). Do not set `PAYLOAD_API_URL` manually — Vercel injects it from the service binding.
+
+4. Deploy. After deploy:
+   - Site: `https://YOUR_DOMAIN/`
+   - CMS: `https://YOUR_DOMAIN/admin`
+   - API: `https://YOUR_DOMAIN/api/...`
+
+### Database note
+
+Local SQLite (`backend/agilit.db`) is fine for development. On Vercel the filesystem is ephemeral, so point `DATABASE_URL` at a hosted store (e.g. Turso/libSQL, Neon/Postgres with a Payload Postgres adapter) before relying on CMS writes in production.

@@ -12,6 +12,11 @@ const nextConfig = {
         port: "4001",
         pathname: "/api/media/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.vercel.app",
+        pathname: "/api/media/**",
+      },
     ],
   },
 }

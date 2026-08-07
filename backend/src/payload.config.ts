@@ -15,6 +15,24 @@ import { HomePage } from './globals/HomePage'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+function appUrls(): string[] {
+  const urls = [
+    'http://localhost:3000',
+    'http://localhost:4001',
+    process.env.FRONTEND_URL || '',
+    process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+  ]
+
+  if (process.env.VERCEL_URL) {
+    urls.push(`https://${process.env.VERCEL_URL}`)
+  }
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    urls.push(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
+  }
+
+  return [...new Set(urls.filter(Boolean))]
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -25,16 +43,15 @@ export default buildConfig({
       titleSuffix: ' — Colonegotiator CMS',
     },
   },
-  cors: [
-    'http://localhost:3000',
-    'http://localhost:4001',
-    process.env.FRONTEND_URL || '',
-  ].filter(Boolean),
-  csrf: [
-    'http://localhost:3000',
-    'http://localhost:4001',
-    process.env.FRONTEND_URL || '',
-  ].filter(Boolean),
+  serverURL:
+    process.env.PAYLOAD_PUBLIC_SERVER_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://localhost:4001'),
+  cors: appUrls(),
+  csrf: appUrls(),
   collections: [Users, Media, Articles],
   globals: [Navigation, Footer, HomePage],
   editor: lexicalEditor(),
