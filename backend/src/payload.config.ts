@@ -46,6 +46,8 @@ function createDatabaseAdapter() {
       pool: {
         connectionString: databaseUrl,
       },
+      // Cockroach bigint IDs exceed JS safe integers and break auth findByID/login.
+      idType: 'uuid',
       // Enable with PAYLOAD_PUSH=true for first seed / schema sync.
       push: process.env.PAYLOAD_PUSH === 'true',
     })
