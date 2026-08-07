@@ -674,20 +674,26 @@ async function seed() {
     const data = {
       ...post,
       publishedAt: new Date(post.publishedAt).toISOString(),
+      // Payload expects mutable arrays (seed data is `as const`)
+      sections: post.sections.map((section) => ({
+        heading: "heading" in section ? section.heading : undefined,
+        paragraphs: section.paragraphs.map((p) => ({ text: p.text })),
+      })),
     }
 
     if (existing.docs[0]) {
+      // Use string IDs — Cockroach/serial bigint IDs exceed JS safe integers.
       await payload.update({
         collection: "articles",
-        id: existing.docs[0].id,
-        data,
+        id: String(existing.docs[0].id),
+        data: data as never,
         overrideAccess: true,
       })
       payload.logger.info(`Updated article: ${post.slug}`)
     } else {
       await payload.create({
         collection: "articles",
-        data,
+        data: data as never,
         overrideAccess: true,
       })
       payload.logger.info(`Created article: ${post.slug}`)

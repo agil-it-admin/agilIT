@@ -1,4 +1,5 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -14,6 +15,12 @@ import { HomePage } from './globals/HomePage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const databaseUrl =
+  process.env.DATABASE_URL ||
+  `file:${path.resolve(dirname, '../agilit.db')}`
+
+const isPostgres = /^postgres(ql)?:\/\//i.test(databaseUrl)
 
 function appUrls(): string[] {
   const urls = [
@@ -31,6 +38,24 @@ function appUrls(): string[] {
   }
 
   return [...new Set(urls.filter(Boolean))]
+}
+
+function createDatabaseAdapter() {
+  if (isPostgres) {
+    return postgresAdapter({
+      pool: {
+        connectionString: databaseUrl,
+      },
+      // Enable with PAYLOAD_PUSH=true for first seed / schema sync.
+      push: process.env.PAYLOAD_PUSH === 'true',
+    })
+  }
+
+  return sqliteAdapter({
+    client: {
+      url: databaseUrl,
+    },
+  })
 }
 
 export default buildConfig({
@@ -59,10 +84,6 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URL || `file:${path.resolve(dirname, '../agilit.db')}`,
-    },
-  }),
+  db: createDatabaseAdapter(),
   sharp,
 })
