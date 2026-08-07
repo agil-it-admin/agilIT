@@ -132,7 +132,26 @@ export type CmsFaq = {
   items: Faq[]
 }
 
+export const HOME_SECTION_TYPES = [
+  "stats",
+  "services",
+  "globalNetwork",
+  "testimonials",
+  "team",
+  "intake",
+  "blogSection",
+  "faq",
+] as const
+
+export type HomeSectionType = (typeof HOME_SECTION_TYPES)[number]
+
+export type CmsHomeSection = {
+  type: HomeSectionType
+  enabled: boolean
+}
+
 export type CmsHomePage = {
+  sections: CmsHomeSection[]
   hero: CmsHero
   stats: CmsStats
   services: CmsServices
@@ -151,6 +170,37 @@ function unwrapTexts(
   return items
     .map((item) => (typeof item === "string" ? item : item?.text?.trim()))
     .filter((text): text is string => Boolean(text))
+}
+
+function isHomeSectionType(value: unknown): value is HomeSectionType {
+  return (
+    typeof value === "string" &&
+    (HOME_SECTION_TYPES as readonly string[]).includes(value)
+  )
+}
+
+export const defaultHomeSections: CmsHomeSection[] = HOME_SECTION_TYPES.map(
+  (type) => ({ type, enabled: true }),
+)
+
+function mapHomeSections(
+  raw?: { type?: string | null; enabled?: boolean | null }[] | null,
+): CmsHomeSection[] {
+  if (!raw?.length) return defaultHomeSections
+
+  const seen = new Set<HomeSectionType>()
+  const mapped: CmsHomeSection[] = []
+
+  for (const row of raw) {
+    if (!isHomeSectionType(row?.type) || seen.has(row.type)) continue
+    seen.add(row.type)
+    mapped.push({
+      type: row.type,
+      enabled: row.enabled !== false,
+    })
+  }
+
+  return mapped.length > 0 ? mapped : defaultHomeSections
 }
 
 export const defaultNavigation: CmsNavigation = {
@@ -208,6 +258,7 @@ export const defaultFooter: CmsFooter = {
 }
 
 export const defaultHomePage: CmsHomePage = {
+  sections: defaultHomeSections,
   hero: {
     eyebrow: "Enterprise colocation sourcing",
     headline: "The sourcing partner for enterprise colocation.",
@@ -456,6 +507,12 @@ function mapHomePage(data: Record<string, unknown> | null): CmsHomePage | null {
     | undefined
 
   return {
+    sections: mapHomeSections(
+      data.sections as {
+        type?: string | null
+        enabled?: boolean | null
+      }[] | null,
+    ),
     hero: {
       eyebrow: hero.eyebrow || defaultHomePage.hero.eyebrow,
       headline: hero.headline,

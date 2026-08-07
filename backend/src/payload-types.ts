@@ -462,6 +462,19 @@ export interface Footer {
  */
 export interface HomePage {
   id: number;
+  /**
+   * Drag to reorder homepage sections below the hero. Disable a row to hide it. Use each section type at most once.
+   */
+  sections?:
+    | {
+        type: 'stats' | 'services' | 'globalNetwork' | 'testimonials' | 'team' | 'intake' | 'blogSection' | 'faq';
+        /**
+         * Uncheck to hide this section on the homepage.
+         */
+        enabled?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   hero: {
     eyebrow: string;
     headline: string;
@@ -666,6 +679,13 @@ export interface FooterSelect<T extends boolean = true> {
  * via the `definition` "home-page_select".
  */
 export interface HomePageSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        type?: T;
+        enabled?: T;
+        id?: T;
+      };
   hero?:
     | T
     | {

@@ -378,6 +378,16 @@ const footerSeed = {
 }
 
 const homePageSeed = {
+  sections: [
+    { type: "stats", enabled: true },
+    { type: "services", enabled: true },
+    { type: "globalNetwork", enabled: true },
+    { type: "testimonials", enabled: true },
+    { type: "team", enabled: true },
+    { type: "intake", enabled: true },
+    { type: "blogSection", enabled: true },
+    { type: "faq", enabled: true },
+  ],
   hero: {
     eyebrow: "Enterprise colocation sourcing",
     headline: "The sourcing partner for enterprise colocation.",

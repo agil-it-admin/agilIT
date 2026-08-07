@@ -14,6 +14,59 @@ export const HomePage: GlobalConfig = {
       type: 'tabs',
       tabs: [
         {
+          label: 'Layout',
+          fields: [
+            {
+              name: 'sections',
+              type: 'array',
+              labels: {
+                singular: 'Section',
+                plural: 'Sections',
+              },
+              admin: {
+                description:
+                  'Drag to reorder homepage sections below the hero. Disable a row to hide it. Use each section type at most once.',
+                initCollapsed: false,
+              },
+              fields: [
+                {
+                  name: 'type',
+                  type: 'select',
+                  required: true,
+                  options: [
+                    { label: 'Stats', value: 'stats' },
+                    { label: 'Services', value: 'services' },
+                    { label: 'Provider network', value: 'globalNetwork' },
+                    { label: 'Testimonials', value: 'testimonials' },
+                    { label: 'Team', value: 'team' },
+                    { label: 'Intake', value: 'intake' },
+                    { label: 'Blog / Resource Center', value: 'blogSection' },
+                    { label: 'FAQ', value: 'faq' },
+                  ],
+                },
+                {
+                  name: 'enabled',
+                  type: 'checkbox',
+                  defaultValue: true,
+                  admin: {
+                    description: 'Uncheck to hide this section on the homepage.',
+                  },
+                },
+              ],
+              validate: (value) => {
+                if (!Array.isArray(value) || value.length === 0) return true
+                const types = value
+                  .map((row: { type?: string }) => row?.type)
+                  .filter(Boolean)
+                if (new Set(types).size !== types.length) {
+                  return 'Each section type can only appear once.'
+                }
+                return true
+              },
+            },
+          ],
+        },
+        {
           label: 'Hero',
           fields: [
             {
