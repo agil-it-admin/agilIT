@@ -56,7 +56,11 @@ export const HomePage: GlobalConfig = {
               validate: (value) => {
                 if (!Array.isArray(value) || value.length === 0) return true
                 const types = value
-                  .map((row: { type?: string }) => row?.type)
+                  .map((row) =>
+                    row && typeof row === 'object' && 'type' in row
+                      ? String((row as { type?: unknown }).type ?? '')
+                      : '',
+                  )
                   .filter(Boolean)
                 if (new Set(types).size !== types.length) {
                   return 'Each section type can only appear once.'
