@@ -48,6 +48,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   const logoRef = useRef<HTMLAnchorElement>(null)
   const navRef = useRef<HTMLElement>(null)
   const highlightRef = useRef<HTMLDivElement>(null)
+  const learnMoreRef = useRef<HTMLButtonElement>(null)
   const getQuotesRef = useRef<HTMLButtonElement>(null)
   const menuBtnRef = useRef<HTMLButtonElement>(null)
 
@@ -64,6 +65,21 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
       document.body.style.overflow = ""
     }
   }, [open])
+
+  function scrollToNextSection() {
+    const go = () => {
+      const target = document.getElementById("overview")
+      target?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+
+    if (window.location.pathname !== "/") {
+      window.location.assign("/#overview")
+      return
+    }
+
+    setOpen(false)
+    go()
+  }
 
   const positionHighlight = useCallback((el: Element | null) => {
     const highlight = highlightRef.current
@@ -95,7 +111,9 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
     const navLinks = navRef.current
       ? Array.from(navRef.current.querySelectorAll("[data-nav-link]"))
       : []
-    const ctaEls = [getQuotesRef.current].filter(Boolean) as Element[]
+    const ctaEls = [learnMoreRef.current, getQuotesRef.current].filter(
+      Boolean,
+    ) as Element[]
     const animatedEls = [
       header,
       logoRef.current,
@@ -202,7 +220,23 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         })
       }
 
-      if (getQuotesRef.current) {
+      if (learnMoreRef.current && getQuotesRef.current) {
+        tl.to(
+          [learnMoreRef.current, getQuotesRef.current],
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.55,
+            ease: ENTRANCE_EASE_OUT,
+            onComplete: () => {
+              if (cancelled) return
+              clearEntranceProps(learnMoreRef.current!)
+              clearEntranceProps(getQuotesRef.current!)
+            },
+          },
+          0.38,
+        )
+      } else if (getQuotesRef.current) {
         tl.to(
           getQuotesRef.current,
           {
@@ -311,7 +345,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
               </nav>
             </div>
 
-            <div className="hidden items-center gap-3 md:flex">
+            <div className="hidden items-center gap-2 md:flex">
               <Button
                 ref={getQuotesRef}
                 className={!entered ? ENTRANCE_PREPARE_CLASS : undefined}
@@ -319,6 +353,15 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 onClick={openQuoteModal}
               >
                 Start sourcing
+              </Button>
+              <Button
+                ref={learnMoreRef}
+                variant="outline"
+                className={!entered ? ENTRANCE_PREPARE_CLASS : undefined}
+                style={entered ? undefined : entranceStyle(16, 0)}
+                onClick={scrollToNextSection}
+              >
+                Learn more
               </Button>
             </div>
 
