@@ -3,7 +3,7 @@
     "frontend": {
       "root": "frontend/",
       "framework": "nextjs",
-      "installCommand": "cd ../.. && pnpm install",
+      "installCommand": "cd .. && pnpm install",
       "bindings": [
         {
           "type": "service",
@@ -16,7 +16,7 @@
     "backend": {
       "root": "backend/",
       "framework": "nextjs",
-      "installCommand": "cd ../.. && pnpm install"
+      "installCommand": "cd .. && pnpm install"
     }
   },
   "rewrites": [
