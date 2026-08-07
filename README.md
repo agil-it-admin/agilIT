@@ -78,10 +78,22 @@ The CMS is mounted at **`/cms`** so its `/_next` assets don’t collide with the
 | `FRONTEND_URL` | backend | `https://YOUR_DOMAIN` |
 | `PAYLOAD_PUBLIC_SERVER_URL` | backend | `https://YOUR_DOMAIN` (no `/admin` or `/cms`) |
 | `DATABASE_URL` | backend | persistent DB URL (see note below) |
+| `BLOB_READ_WRITE_TOKEN` | backend | from Vercel Blob store (usually auto-added) |
 
 Leave `NEXT_PUBLIC_PAYLOAD_API_URL` unset on Vercel (local only). Do not set `PAYLOAD_API_URL` manually — Vercel injects it from the service binding.
 
-4. Deploy. After deploy:
+### Media uploads (Vercel Blob)
+
+Vercel has no persistent disk, so Payload media must use [Vercel Blob](https://vercel.com/docs/storage/vercel-blob):
+
+1. Vercel project → **Storage** → **Create** → **Blob**
+2. Connect the store to this project (Production + Preview)
+3. Confirm `BLOB_READ_WRITE_TOKEN` appears under Environment Variables
+4. Redeploy
+
+Uploads then go to Blob (with client uploads enabled to bypass the 4.5MB serverless limit). Locally, without the token, media still saves to disk.
+
+5. Deploy. After deploy:
    - Site: `https://YOUR_DOMAIN/`
    - CMS: `https://YOUR_DOMAIN/cms/admin`
    - API: `https://YOUR_DOMAIN/cms/api/...`

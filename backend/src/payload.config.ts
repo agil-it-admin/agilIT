@@ -1,5 +1,6 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -21,6 +22,7 @@ const databaseUrl =
   `file:${path.resolve(dirname, '../agilit.db')}`
 
 const isPostgres = /^postgres(ql)?:\/\//i.test(databaseUrl)
+const blobToken = process.env.BLOB_READ_WRITE_TOKEN?.trim()
 
 function appUrls(): string[] {
   const urls = [
@@ -87,5 +89,19 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: createDatabaseAdapter(),
+  plugins: [
+    ...(blobToken
+      ? [
+          vercelBlobStorage({
+            collections: {
+              media: true,
+            },
+            token: blobToken,
+            // Bypass Vercel serverless 4.5MB body limit for admin uploads.
+            clientUploads: true,
+          }),
+        ]
+      : []),
+  ],
   sharp,
 })
