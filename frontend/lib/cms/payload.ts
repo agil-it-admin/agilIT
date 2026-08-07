@@ -4,19 +4,28 @@
  * Resolution order:
  * 1. PAYLOAD_API_URL — Vercel service binding (server-side, preferred in prod)
  * 2. NEXT_PUBLIC_PAYLOAD_API_URL — explicit public/base URL (local or override)
- * 3. Same-origin empty → http://localhost:4001 for local `pnpm dev`
+ * 3. Same-origin /cms on Vercel, else http://localhost:4001 for local `pnpm dev`
+ *
+ * On Vercel the CMS is mounted at `/cms` (see backend next.config basePath).
  */
+
+function withCmsBase(url: string): string {
+  const base = url.replace(/\/+$/, "")
+  if (process.env.VERCEL && !base.endsWith("/cms")) {
+    return `${base}/cms`
+  }
+  return base
+}
 
 export function getPayloadApiUrl(): string {
   const fromBinding = process.env.PAYLOAD_API_URL?.trim()
-  if (fromBinding) return fromBinding.replace(/\/+$/, "")
+  if (fromBinding) return withCmsBase(fromBinding)
 
   const fromPublic = process.env.NEXT_PUBLIC_PAYLOAD_API_URL?.trim()
   if (fromPublic) return fromPublic.replace(/\/+$/, "")
 
-  // On Vercel the public site and CMS share one domain; /api is rewritten to backend.
   if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`.replace(/\/+$/, "")
+    return withCmsBase(`https://${process.env.VERCEL_URL}`)
   }
 
   return "http://localhost:4001"

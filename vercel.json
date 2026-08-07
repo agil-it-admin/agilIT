@@ -21,15 +21,11 @@
   },
   "rewrites": [
     {
-      "source": "/admin",
+      "source": "/cms",
       "destination": { "service": "backend" }
     },
     {
-      "source": "/admin/(.*)",
-      "destination": { "service": "backend" }
-    },
-    {
-      "source": "/api/(.*)",
+      "source": "/cms/(.*)",
       "destination": { "service": "backend" }
     },
     {

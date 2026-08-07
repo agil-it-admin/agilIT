@@ -62,9 +62,9 @@ This repo is set up as a single Vercel project with two [Services](https://verce
 | Service | Root | Public routes |
 | --- | --- | --- |
 | `frontend` | `frontend/` | `/` (marketing site) |
-| `backend` | `backend/` | `/admin`, `/api/*` (Payload) |
+| `backend` | `backend/` | `/cms/*` (Payload admin + API + assets) |
 
-Routing uses `/admin` and `/api/*` (not `/api/backend`) so Payload’s built-in paths work as-is. The frontend binds to the backend via `PAYLOAD_API_URL` for server-side CMS fetches.
+The CMS is mounted at **`/cms`** so its `/_next` assets don’t collide with the marketing site. Admin: `/cms/admin`. API: `/cms/api/...`. The frontend binds to the backend via `PAYLOAD_API_URL` for server-side CMS fetches.
 
 ### Import steps
 
@@ -76,15 +76,15 @@ Routing uses `/admin` and `/api/*` (not `/api/backend`) so Payload’s built-in 
 | --- | --- | --- |
 | `PAYLOAD_SECRET` | backend (or shared) | long random secret |
 | `FRONTEND_URL` | backend | `https://YOUR_DOMAIN` |
-| `PAYLOAD_PUBLIC_SERVER_URL` | backend | `https://YOUR_DOMAIN` |
+| `PAYLOAD_PUBLIC_SERVER_URL` | backend | `https://YOUR_DOMAIN` (no `/admin` or `/cms`) |
 | `DATABASE_URL` | backend | persistent DB URL (see note below) |
 
 Leave `NEXT_PUBLIC_PAYLOAD_API_URL` unset on Vercel (local only). Do not set `PAYLOAD_API_URL` manually — Vercel injects it from the service binding.
 
 4. Deploy. After deploy:
    - Site: `https://YOUR_DOMAIN/`
-   - CMS: `https://YOUR_DOMAIN/admin`
-   - API: `https://YOUR_DOMAIN/api/...`
+   - CMS: `https://YOUR_DOMAIN/cms/admin`
+   - API: `https://YOUR_DOMAIN/cms/api/...`
 
 ### Database note
 

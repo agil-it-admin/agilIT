@@ -5,7 +5,12 @@ import { fileURLToPath } from 'url'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// On Vercel Services, both apps are Next.js and would collide on `/_next/*`.
+// Mount the CMS under `/cms` so admin, API, and assets share one prefix.
+const useCmsBasePath = Boolean(process.env.VERCEL)
+
 const nextConfig: NextConfig = {
+  basePath: useCmsBasePath ? '/cms' : undefined,
   images: {
     localPatterns: [{ pathname: '/api/media/file/**' }],
   },
